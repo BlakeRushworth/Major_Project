@@ -235,25 +235,25 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: 2.35e-43
+      e00: 6.711097e-36
       e01: 0
       e02: 1e-45
       e03: -3.5652734e+29
-      e10: 0
+      e10: 3.22e-43
       e11: 0
       e12: 0
-      e13: 7.55e-43
-      e20: -1.4787045e+11
+      e13: 8.3e-43
+      e20: -2.6369054e+20
       e21: -3.5652734e+29
-      e22: 3.69943e-40
-      e23: 0.0000000033515324
+      e22: 4.29896e-40
+      e23: 9.997736e-10
       e30: 4.5912e-41
-      e31: 7.55e-43
-      e32: 7.6e-43
-      e33: 7.57e-43
+      e31: 8.3e-43
+      e32: 8.34e-43
+      e33: 8.31e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: 0.0000000033515235, g: 0.0000000033515235, b: 0.0000000033515235, a: 0.0000000033515235}
+    m_Data: {r: 9.997692e-10, g: 9.997692e-10, b: 9.997692e-10, a: 9.997692e-10}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -428,7 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5b6b7cc18deb1458d07d4c76dc63e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1425155225267834831, guid: 80f8d7f42b0469642a70456c4992b447, type: 3}
+  GridBlock: {fileID: 1425155225267834831, guid: 80f8d7f42b0469642a70456c4992b447, type: 3}
+  Hwall: {fileID: 1501609531325004231, guid: 377056393db6ca541bbef5981898981e, type: 3}
+  Vwall: {fileID: 1291297500199307266, guid: 1317720777fc7d441aaf61aa3be2e82c, type: 3}
+  grid_coordinate: {x: 0, y: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
