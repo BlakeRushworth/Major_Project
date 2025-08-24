@@ -7,15 +7,30 @@ public class map_generation : MonoBehaviour
     public GameObject Hwall;
     public GameObject Vwall;
 
-    public Vector2 grid_coordinate;
+    private Vector2 grid_coordinate;
 
     private Vector3 spawn_coords;
     private int map_size_x;
     private int map_size_y;
     const int tile_size = 16;
-    const int wall_percentage = 3;
+    const int wall_percentage = 5;
+
+    public static int[,] wall_state;
+
     void Start()
     {
+        wall_state = new int[,]
+        {
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0}
+        };
         Grid_Logic();
     }
 
@@ -30,13 +45,19 @@ public class map_generation : MonoBehaviour
         {
             for (int y = tile_size - 1; y < (map_size_y - 1) * tile_size; y = y + tile_size)
             {
+                Vector2 wall_coordinate = new Vector2((x + 1) / tile_size, ((y + 1) / tile_size) - 1);
                 spawn_coords = new Vector3(x, y, 0);
                 int chance = Random.Range(0, wall_percentage);
                 if (chance == 0)
                 {
-                    print("Hwall at: ( " + (x + 1) / tile_size + " , " + (y + 1) / tile_size + " )");
-                    print("Hwall touching: (" + (x - 1) / tile_size + " , " + (y + 1) / tile_size + " )");
-                    print("and ( " + (x - 1) / tile_size + " , " + ((y + 1) - tile_size) / tile_size + " )");
+
+                    wall_state[((int)wall_coordinate.x), (int)wall_coordinate.y] = 1; 
+                    //print("Hwall at: ( " + (x - 1) / tile_size + " , " + (((y + 1) / tile_size) - 0.5) + " )"                                                 );
+                    print("Hwall at: " + wall_coordinate);
+                    //print("Hwall touching: (" + (x - 1) / tile_size + " , " + (y + 1) / tile_size + " )");
+                    //print("and ( " + (x - 1) / tile_size + " , " + ((y + 1) - tile_size) / tile_size + " )");
+                    //wall_state[(x + 1), (y + 1) / tile_size] = true;
+                    //print("Hwall: " + x + y);
                     Spawn_Hwall();
                 }
             }
@@ -48,20 +69,33 @@ public class map_generation : MonoBehaviour
         {
             for (int y = 1; y < map_size_y * tile_size; y = y + tile_size)
             {
+                Vector2 wall_coordinate = new Vector2(((x - 1) / tile_size), ((y + 1) / tile_size)); 
                 spawn_coords = new Vector3(x, y, 0);
                 int chance =  Random.Range(0, wall_percentage);
                 if (chance == 0)
-                {
-                    print("Vwall at: ( " + (x + 1) / tile_size + " , " + (y + 1) / tile_size + " )");
-                    print("Vwall touching: (" + ((x + 1) - tile_size) / tile_size + " , " + (y - 1) / tile_size + " )");
-                    print("and ( " + (x + 1) / tile_size + " , " + (y - 1) / tile_size + " )");
+                {   
+                    print(wall_coordinate.x + 6);
+                    wall_state[(int)wall_coordinate.x + 6, (int)wall_coordinate.y] = 1; // the first 5 rows are horisontal since 0 is the lowest you need to add 6 to give enough room.
+
+                    print("Vwall at: " + wall_coordinate);
+                    //print("Vwall at: ( " + (x + 1) / tile_size + " , " + (y + 1) / tile_size + " )");
+                    //print("Vwall touching: (" + ((x + 1) - tile_size) / tile_size + " , " + (y - 1) / tile_size + " )");
+                    //print("and ( " + (x + 1) / tile_size + " , " + (y - 1) / tile_size + " )");
                     Spawn_Vwall();
                 }
-                
             }
         }
     }
-
+    /*
+    public void Hwall_check()
+    {
+        int adjacent_count = 0;
+    }
+    public void Vwall_check()
+    {
+        int adjacent_count = 0;
+    }
+    */
     public void Spawn_Vwall()
     {
         //print("Vwall");
@@ -105,7 +139,7 @@ public class map_generation : MonoBehaviour
             {
                 grid_coordinate.x = x / tile_size;
                 grid_coordinate.y = y / tile_size;
-                print(" grid: " + grid_coordinate);
+                //print(" grid: " + grid_coordinate);
                 spawn_coords = new Vector3(x, y, 0);
                 Spawn_Grid();
             }
