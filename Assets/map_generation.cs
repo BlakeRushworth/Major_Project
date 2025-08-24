@@ -15,16 +15,21 @@ public class map_generation : MonoBehaviour
     const int tile_size = 16;
     const int wall_percentage = 5;
 
-    public static int[,] wall_state;
+    public static int[,] Hwall_state;
+    public static int[,] Vwall_state;
 
     void Start()
     {
-        wall_state = new int[,]
+        Hwall_state = new int[,]
         {
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0}
+        };
+        Vwall_state = new int[,]
+        {
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0},
@@ -51,7 +56,7 @@ public class map_generation : MonoBehaviour
                 if (chance == 0)
                 {
 
-                    wall_state[((int)wall_coordinate.x), (int)wall_coordinate.y] = 1; 
+                    Hwall_state[((int)wall_coordinate.x), (int)wall_coordinate.y] = 1; 
                     //print("Hwall at: ( " + (x - 1) / tile_size + " , " + (((y + 1) / tile_size) - 0.5) + " )"                                                 );
                     print("Hwall at: " + wall_coordinate);
                     //print("Hwall touching: (" + (x - 1) / tile_size + " , " + (y + 1) / tile_size + " )");
@@ -74,8 +79,9 @@ public class map_generation : MonoBehaviour
                 int chance =  Random.Range(0, wall_percentage);
                 if (chance == 0)
                 {   
-                    print(wall_coordinate.x + 6);
-                    wall_state[(int)wall_coordinate.x + 6, (int)wall_coordinate.y] = 1; // the first 5 rows are horisontal since 0 is the lowest you need to add 6 to give enough room.
+                    //int add = (int)wall_coordinate.x + 5;
+                    //print(wall_coordinate.x + " " + add);
+                    Vwall_state[(int)wall_coordinate.x, (int)wall_coordinate.y] = 1; // the first 5 rows are horisontal since 0 is the lowest you need to add 6 to give enough room.
 
                     print("Vwall at: " + wall_coordinate);
                     //print("Vwall at: ( " + (x + 1) / tile_size + " , " + (y + 1) / tile_size + " )");
