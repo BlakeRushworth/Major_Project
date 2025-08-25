@@ -13,6 +13,9 @@ public class button_test : MonoBehaviour
     public int Vx = 0;
     public int Vy = 0;
 
+    public int Hx_touchcount = 0;
+    public int Hy_touchcount = 0;
+
     public void Start()
     {
         
@@ -22,8 +25,9 @@ public class button_test : MonoBehaviour
     {
         //GameObject prefabToLoad = Resources.Load<GameObject>(prefabPathInResources);
         //spawn();
-        print("Hwall state at: ( " + Hx + " , " + Hy + " ) is " + map_generation.Hwall_state[Hx, Hy]);
-        print("Vwall state at: ( " + Vx + " , " + Vy + " ) is " + map_generation.Vwall_state[Vx, Vy]);
+        print("Hwall touch count at: ( " + Hx_touchcount + " , " + Hy_touchcount + " ) is " + map_generation.Hwall_adjasent_count[Hx_touchcount, Hy_touchcount]);
+        //print("Hwall state at: ( " + Hx + " , " + Hy + " ) is " + map_generation.Hwall_state[Hx, Hy]);
+        //print("Vwall state at: ( " + Vx + " , " + Vy + " ) is " + map_generation.Vwall_state[Vx, Vy]);
     }
 
     public void spawn()
