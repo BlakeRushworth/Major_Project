@@ -18,6 +18,7 @@ public class map_generation : MonoBehaviour
     public static int[,] Hwall_state;
     public static int[,] Vwall_state;
     public static int[,] Hwall_adjasent_count;
+    public static int[,] Vwall_adjasent_count;
 
     private Vector2 Hwall_coordinate;
     private Vector2 Vwall_coordinate;
@@ -48,6 +49,15 @@ public class map_generation : MonoBehaviour
             { 0, 0, 0, 0, 0},
             { 0, 0, 0, 0, 0}
         };
+        Vwall_adjasent_count = new int[,]
+        {
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0},
+            { 0, 0, 0, 0, 0}
+        };
+
         Grid_Logic();
     }
 
@@ -168,32 +178,50 @@ public class map_generation : MonoBehaviour
     public void Vwall_check()
     {
         int adjacent_count = 0;
-        if (Vwall_coordinate.y == 0)
+        if (Vwall_coordinate.y != 0) // not touching the most bottom side
         {
             //bottom 3 dont check
-            print( Hwall_coordinate + " is not touching left wall");
-            /*
-            if (Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 1)
+            print( Vwall_coordinate + " is not touching bottom wall");
+            
+            if (Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)] == 1)
             {
-                print(((int)Hwall_coordinate.x - 1) + " , " + Hwall_coordinate.y + " Hwall is true");
-                adjacent_count = adjacent_count + Hwall_adjasent_count[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y];
+                print((int)Vwall_coordinate.x + " , " + ((int)Vwall_coordinate.y + 1) + " Hwall is true");
+                adjacent_count = adjacent_count + Vwall_adjasent_count[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)];
             }
-            if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] == 1)
+            if (Hwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] == 1)
             {
-                print(((int)Hwall_coordinate.x - 1) + " , " + ((int)Hwall_coordinate.y + 1) + " Vwall is true");
-                adjacent_count = adjacent_count + Hwall_adjasent_count[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)];
+                print((int)Hwall_coordinate.x + " , " + (int)Hwall_coordinate.y + " Hwall is true");
+                adjacent_count = adjacent_count + Hwall_adjasent_count[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y];
             }
-            if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 1)
+            if (Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] == 1)
             {
-                print(((int)Hwall_coordinate.x - 1) + " , " + (int)Hwall_coordinate.y + " Vwall is true");
-                adjacent_count = adjacent_count + Hwall_adjasent_count[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y];
+                print(((int)Hwall_coordinate.x + 1) + " , " + (int)Hwall_coordinate.y + " Hwall is true");
+                adjacent_count = adjacent_count + Hwall_adjasent_count[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y];
             }
-            */
-        }
-        if (Hwall_coordinate.y == map_size_y)
+
+
+        } // flip
+        if (Vwall_coordinate.y != map_size_y - 1) // not touching the most top side
         {
             //top 3 dont check
-            print(Hwall_coordinate + " is not touching right wall");
+            print( Vwall_coordinate + " is not touching top wall");
+
+            if (Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)] == 1)
+            {
+                print((int)Vwall_coordinate.x + " , " + ((int)Vwall_coordinate.y + 1) + " Hwall is true");
+                adjacent_count = adjacent_count + Vwall_adjasent_count[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)];
+            }
+            if (Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 1)
+            {
+                print((int)Hwall_coordinate.x + " , " + (int)Hwall_coordinate.y + " Hwall is true");
+                adjacent_count = adjacent_count + Hwall_adjasent_count[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y];
+            }
+            if (Hwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] == 1)
+            {
+                print(((int)Hwall_coordinate.x + 1) + " , " + ((int)Hwall_coordinate.y + 1) + " Hwall is true");
+                adjacent_count = adjacent_count + Hwall_adjasent_count[((int)Hwall_coordinate.x + 1), ((int)Hwall_coordinate.y + 1)];
+            }
+
             /*
             if (Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] == 1)
             {
@@ -220,19 +248,19 @@ public class map_generation : MonoBehaviour
             int chance = Random.Range(0, wall_percentage);
             if (chance == 0)
             {
-                print("spawned: " + Hwall_adjasent_count[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y]);
+                print("spawned: " + Vwall_adjasent_count[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y]);
                 Vwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = 1;
                 Spawn_Vwall();
             }
             else
             {
-                print("didnt spawn by chance " + Hwall_adjasent_count[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y]);
+                print("didnt spawn by chance " + Vwall_adjasent_count[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y]);
             }
         }
         else
         {
             Vwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = adjacent_count;
-            print("Not placeable at " + Hwall_coordinate + " as touching " + adjacent_count + " walls.");
+            print("Not placeable at " + Vwall_coordinate + " as touching " + adjacent_count + " walls.");
         }
 
 
