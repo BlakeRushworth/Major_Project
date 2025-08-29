@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -423,7 +424,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5b6b7cc18deb1458d07d4c76dc63e0, type: 3}
   m_Name: 
@@ -431,7 +432,21 @@ MonoBehaviour:
   GridBlock: {fileID: 1425155225267834831, guid: 80f8d7f42b0469642a70456c4992b447, type: 3}
   Hwall: {fileID: 1501609531325004231, guid: 377056393db6ca541bbef5981898981e, type: 3}
   Vwall: {fileID: 1291297500199307266, guid: 1317720777fc7d441aaf61aa3be2e82c, type: 3}
-  grid_coordinate: {x: 0, y: 0}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4681fc354734394aac3e6731710d862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridBlock: {fileID: 1425155225267834831, guid: 80f8d7f42b0469642a70456c4992b447, type: 3}
+  Hwall: {fileID: 1501609531325004231, guid: 377056393db6ca541bbef5981898981e, type: 3}
+  Vwall: {fileID: 1291297500199307266, guid: 1317720777fc7d441aaf61aa3be2e82c, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +647,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1425155225267834831, guid: 80f8d7f42b0469642a70456c4992b447, type: 3}
+  Hx: 0
+  Hy: 0
+  Vx: 0
+  Vy: 0
+  Hx_touchcount: 0
+  Hy_touchcount: 0
 --- !u!1 &1459267667
 GameObject:
   m_ObjectHideFlags: 0
