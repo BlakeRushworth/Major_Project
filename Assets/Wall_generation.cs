@@ -22,6 +22,7 @@ public class Wall_generation : MonoBehaviour
 
     private Vector2 Hwall_coordinate;
     private Vector2 Vwall_coordinate;
+    private Vector2 Update_coordinate;
 
     void Start()
     {
@@ -157,6 +158,7 @@ public class Wall_generation : MonoBehaviour
                 {
                     print("YES: H side wall " + Hwall_coordinate);
                     Hwall_state[((int)Hwall_coordinate.x), (int)Hwall_coordinate.y] = 2;
+                    Update_coordinate = Hwall_coordinate;
                     Hwall_Update();
                 }
                 else if (touching_edgeWall == 0)
@@ -273,6 +275,7 @@ public class Wall_generation : MonoBehaviour
                 {
                     print("YES: V side wall " + Vwall_coordinate);
                     Vwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = 2;
+                    Update_coordinate = Vwall_coordinate;
                     Vwall_Update();
                 }
                 else if (touching_edgeWall == 0)
@@ -300,69 +303,93 @@ public class Wall_generation : MonoBehaviour
 
     public void Hwall_Update() //update all walls that are touching to side walls
     {
-        if (Hwall_coordinate.x != 0) // not touching the most left side
+        if (Update_coordinate.x != 0) // not touching the most left side
         {
-            if (Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] > 0) //direct left check
+            if (Hwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] > 0) //direct left check
             {
-                Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] = 2;
+                Hwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y);
+                Hwall_Update();
             }
-            if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] > 0) // left up check
+            if (Vwall_state[((int)Update_coordinate.x - 1), ((int)Update_coordinate.y + 1)] > 0) // left up check
             {
-                Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] = 2;
+                Vwall_state[((int)Update_coordinate.x - 1), ((int)Update_coordinate.y + 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y + 1);
+                Vwall_Update();
             }
-            if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] > 0) // left down check
+            if (Vwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] > 0) // left down check
             {
-                Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] = 2;
+                Vwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y);
+                Vwall_Update();
             }
         }
 
-        if (Hwall_coordinate.x != map_size_x - 1) // not touching the most right side
+        if (Update_coordinate.x != map_size_x - 1) // not touching the most right side
         {
-            if (Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] > 0) // direct right check
+            if (Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] == 1) // direct right check
             {
-                Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] = 2;
+                Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y);
+                Hwall_Update();
             }
-            if (Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] > 0) // up right check
+            if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] == 1) // up right check
             {
-                Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] = 2;
+                Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y + 1);
+                Vwall_Update();
             }
-            if (Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] > 0) // down right check
+            if (Vwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] == 1) // down right check
             {
-                Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] = 2;
+                Vwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y);
+                Vwall_Update();
             }
         }
     }
 
     public void Vwall_Update() //update all walls that are touching to side walls
     {
-        if (Vwall_coordinate.y != 0) // not touching the most bottom side
+        if (Update_coordinate.y != 0) // not touching the most bottom side
         {
-            if (Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y - 1)] > 0) //direct down check
+            if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] == 1) //direct down check
             {
-                Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y - 1)] = 2;
+                Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y - 1);
+                Vwall_Update();
             }
-            if (Hwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y - 1)] > 0) // down left check
+            if (Hwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] == 1) // down left check
             {
-                Hwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y - 1)] = 2;
+                Hwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y - 1);
+                Hwall_Update();
             }
-            if (Hwall_state[((int)Vwall_coordinate.x + 1), ((int)Vwall_coordinate.y - 1)] > 0) // down right check
+            if (Hwall_state[((int)Update_coordinate.x + 1), ((int)Update_coordinate.y - 1)] == 1) // down right check
             {
-                Hwall_state[((int)Vwall_coordinate.x + 1), ((int)Vwall_coordinate.y - 1)] = 2;
+                Hwall_state[((int)Update_coordinate.x + 1), ((int)Update_coordinate.y - 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y - 1);
+                Hwall_Update();
             }
         }
-        if (Vwall_coordinate.y != map_size_y - 1) // not touching the most top side
+        if (Update_coordinate.y != map_size_y - 1) // not touching the most top side
         {
-            if (Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)] > 0) // direct up check
+            if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] > 0) // direct up check
             {
-                Vwall_state[(int)Vwall_coordinate.x, ((int)Vwall_coordinate.y + 1)] = 2;
+                Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y + 1);
+                Vwall_Update();
             }
-            if (Hwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] > 0) // up left check
+            if (Hwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] > 0) // up left check
             {
-                Hwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = 2;
+                Hwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y);
+                Hwall_Update();
             }
-            if (Hwall_state[((int)Vwall_coordinate.x + 1), (int)Vwall_coordinate.y] > 0) // up right check
+            if (Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] > 0) // up right check
             {
-                Hwall_state[((int)Vwall_coordinate.x + 1), (int)Vwall_coordinate.y] = 2;
+                Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] = 2;
+                Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y);
+                Hwall_Update();
             }
         }
     }
