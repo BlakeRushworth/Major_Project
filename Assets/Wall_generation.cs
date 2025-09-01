@@ -83,7 +83,8 @@ public class Wall_generation : MonoBehaviour
 
         if (Hwall_coordinate.x == 0 || Hwall_coordinate.x == map_size_x - 1)
         {
-            touching_edgeWall += 1;
+            touching_edgeWall++;
+            print("touching outerwall:" + touching_edgeWall);
         }
 
         if (Hwall_coordinate.x != 0) // not touching the most left side
@@ -93,10 +94,7 @@ public class Wall_generation : MonoBehaviour
                 if (Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching direct left:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] > 0) // left up check
@@ -104,10 +102,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching left up:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] > 0) // left down check
@@ -115,10 +110,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching left down:" + touching_edgeWall);
                 }
             }
         }
@@ -130,10 +122,7 @@ public class Wall_generation : MonoBehaviour
                 if (Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching direct right:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] > 0) // up right check
@@ -141,10 +130,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching right up:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] > 0) // down right check
@@ -152,15 +138,16 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    if (touching_edgeWall > 1) // if touching 2 or more sides
-                    {
-                        can_spawnWall = false;
-                    }
+                    print("touching right down:" + touching_edgeWall);
                 }
             }
         
         }
-        if (can_spawnWall)
+        if (touching_edgeWall > 1) 
+        {
+            can_spawnWall = false;
+        }
+        if (touching_edgeWall < 2)
         {
             int chance = Random.Range(0, wall_percentage);
             print("at: " + Hwall_coordinate + " touching: " + touching_edgeWall + " side walls");
