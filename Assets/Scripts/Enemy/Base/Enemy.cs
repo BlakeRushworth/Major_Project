@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour, Idamageable, IenemyMoveable, ITriggerCheckab
     private void Awake()
     {
         StateMachine = new EnemyStateMachine();
+        //Debug.Log("BONK");
 
         IdleState = new EnemyIdleState(this, StateMachine);
         ChaseState = new EnemyChaseState(this, StateMachine);
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour, Idamageable, IenemyMoveable, ITriggerCheckab
     }
     private void Start()
     {
+
         CurrentHealth = MaxHealth;
 
         RB = GetComponent<Rigidbody2D>();

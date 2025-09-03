@@ -46,7 +46,6 @@ public class EnemyAttackState : EnemyState
             Vector2 dir = (_playerTransform.position - enemy.transform.position).normalized;
 
             Rigidbody2D bullet = GameObject.Instantiate(enemy.bulletPrefab, enemy.transform.position, Quaternion.identity);
-            bullet.transform.position = dir;
             bullet.linearVelocity = dir * _bulletSpeed;
         }
 
