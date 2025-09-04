@@ -12,7 +12,7 @@ public class Wall_generation : MonoBehaviour
 
     private int map_size_x;
     private int map_size_y;
-    const int tile_size = 16;
+    const int tile_size = 32;
     const int wall_percentage = 2;
     private int touching_edgeWall = 0;
     private bool can_spawnWall;

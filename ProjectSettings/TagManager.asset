@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Dirt
+    uniqueID: 310828723
+    locked: 0
+  - name: Grass
+    uniqueID: 282121633
+    locked: 0
+  - name: Hill
+    uniqueID: 225345609
+    locked: 0
+  - name: Water
+    uniqueID: 4199964603
+    locked: 0
+  - name: Decorations
+    uniqueID: 3644031215
+    locked: 0
+  m_RenderingLayers:
+  - Default
