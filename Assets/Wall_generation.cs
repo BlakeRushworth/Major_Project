@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Wall_generation : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Wall_generation : MonoBehaviour
     private Vector2 Hwall_coordinate;
     private Vector2 Vwall_coordinate;
     private Vector2 Update_coordinate;
+
+    public Tilemap initalTilemap;
 
     void Start()
     {
@@ -417,7 +420,34 @@ public class Wall_generation : MonoBehaviour
         }
     }
 
+    public void MergeTilemaps()
+    {
+        
+        Tilemap[] allTilemapsInScene = FindObjectsByType<Tilemap>(FindObjectsSortMode.None);
+        for (int i = 0; i < allTilemapsInScene.Length; i++)
+        {
+            Debug.Log(allTilemapsInScene[i] + "count: " + i);
+            BoundsInt bounds = allTilemapsInScene[i].cellBounds;
 
+            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            {
+                for (int y = bounds.yMin; y < bounds.yMax; y++)
+                {
+                    Vector3Int cellPosition = new Vector3Int(x, y, 0);
+
+                    TileBase tile = allTilemapsInScene[i].GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        initalTilemap.SetTile(cellPosition, tile);
+                    }
+                }
+            }
+
+            Debug.Log("Tilemaps merged successfully!");
+        }
+        
+    }
 
     public void Grid_Logic()
     {
@@ -434,8 +464,9 @@ public class Wall_generation : MonoBehaviour
                 Spawn_Grid();
             }
         }
-        Vwall_Logic();
-        Hwall_Logic();
+        //Vwall_Logic();
+        //Hwall_Logic();
+        MergeTilemaps();
     }
     public void Spawn_Grid()
     {
