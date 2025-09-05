@@ -427,26 +427,33 @@ public class Wall_generation : MonoBehaviour
         for (int i = 0; i < allTilemapsInScene.Length; i++)
         {
             Debug.Log(allTilemapsInScene[i] + "count: " + i);
-            BoundsInt bounds = allTilemapsInScene[i].cellBounds;
-
-            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            if (allTilemapsInScene[i].tag == "tile")
             {
-                for (int y = bounds.yMin; y < bounds.yMax; y++)
+                Vector2 pos = allTilemapsInScene[i].transform.parent.parent.position;
+                Debug.Log(pos);
+
+                BoundsInt bounds = allTilemapsInScene[i].cellBounds;
+
+                for (int x = bounds.xMin; x < bounds.xMax; x++)
                 {
-                    Vector3Int cellPosition = new Vector3Int(x, y, 0);
-
-                    TileBase tile = allTilemapsInScene[i].GetTile(cellPosition);
-
-                    if (tile != null)
+                    for (int y = bounds.yMin; y < bounds.yMax; y++)
                     {
-                        initalTilemap.SetTile(cellPosition, tile);
+                        Vector3Int cellPosition = new Vector3Int(x, y, 0);
+
+                        TileBase tile = allTilemapsInScene[i].GetTile(cellPosition);
+
+                        if (tile != null)
+                        {
+                            Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                            initalTilemap.SetTile(updatedPos, tile);
+                            Object.Destroy(allTilemapsInScene[i].transform.parent.parent.gameObject);
+                        }
                     }
                 }
-            }
 
-            Debug.Log("Tilemaps merged successfully!");
-        }
-        
+                Debug.Log("Tilemaps merged successfully!");
+            }
+        }   
     }
 
     public void Grid_Logic()

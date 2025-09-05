@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3228797324095037512}
   m_Layer: 0
   m_Name: Hill
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5746,7 +5746,7 @@ GameObject:
   - component: {fileID: 129848275318766816}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6901,7 +6901,7 @@ GameObject:
   - component: {fileID: 1719046552774363370}
   m_Layer: 0
   m_Name: Dirt
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11486,7 +11486,7 @@ GameObject:
   - component: {fileID: 9029595978080506017}
   m_Layer: 0
   m_Name: Grass
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20654,7 +20654,7 @@ GameObject:
   - component: {fileID: 8740418624410842866}
   m_Layer: 0
   m_Name: Decorations
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
