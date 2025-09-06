@@ -36,6 +36,13 @@ public class HuntandKill_Algorithm : MonoBehaviour
 
     public GameObject[] tiles;
 
+    public Tilemap TilemapDirt;
+    public Tilemap TilemapGrass;
+    public Tilemap TilemapHill;
+    public Tilemap TilemapWater;
+    public Tilemap TilemapDecorations;
+    public Tilemap TilemapTest;
+
     private void Start()
     {
         StartingPoint();
@@ -59,6 +66,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
                 }
             }
         }
+        MergeTilemaps();
     }
 
     public void algorithm()
@@ -187,7 +195,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
         else
         {
             print("no options :)");
-            spawn_walls();
+            scan();
         }
     }
 
@@ -222,4 +230,126 @@ public class HuntandKill_Algorithm : MonoBehaviour
         //tileIdentifier[currentTile.x, currentTile.y] += 1;
         algorithm();
     }
+
+    public void scan()
+    {
+        print(mapSize.x);
+        print(mapSize.y);
+        for (int x = 0; x < mapSize.x; x++)
+        {
+            for (int y = 0; y < mapSize.y; y++)
+            {
+                print(x + " " + y);
+                if (tileIdentifier[x, y] == 0)
+                {
+                    print("doesnt exist");
+                    if (y != mapSize.y - 1)
+                    {
+                        if (tileIdentifier[x, y + 1] != 0)
+                        {
+                            DirectionState[0] = 1;
+                        }
+                    }
+                    if (y != 0)
+                    {
+                        if (tileIdentifier[x, y - 1] != 0)
+                        {
+                            DirectionState[1] = 1;
+                        }
+                    }
+                    if (x != 0)
+                    {
+                        if (tileIdentifier[x - 1, y] != 0)
+                        {
+                            DirectionState[2] = 1;
+                        }
+                    }
+                    if (x != mapSize.x - 1)
+                    {
+                        if (tileIdentifier[x + 1, y] != 0)
+                        {
+                            DirectionState[3] = 1;
+                        }
+                    }
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (DirectionState[i] == 1)
+                        {
+                            currentTile = new Vector2Int(x, y);
+                            nextDirectionLogic();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        print("all done!");
+        spawn_walls();
+    }
+
+    public void MergeTilemaps()
+    {
+
+        Tilemap[] allTilemapsInScene = FindObjectsByType<Tilemap>(FindObjectsSortMode.None);
+        for (int i = 0; i < allTilemapsInScene.Length; i++)
+        {
+            if (allTilemapsInScene[i].tag == "tile")
+            {
+                Vector2 pos = allTilemapsInScene[i].transform.parent.position;
+                //Debug.Log(pos);
+
+                BoundsInt bounds = allTilemapsInScene[i].cellBounds;
+
+                for (int x = bounds.xMin; x < bounds.xMax; x++)
+                {
+                    for (int y = bounds.yMin; y < bounds.yMax; y++)
+                    {
+                        Vector3Int cellPosition = new Vector3Int(x, y, 0);
+
+                        TileBase tile = allTilemapsInScene[i].GetTile(cellPosition);
+
+                        if (tile != null)
+                        {
+                            if (allTilemapsInScene[i].name == "Dirt")
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapDirt.SetTile(updatedPos, tile);
+                            }
+                            else if (allTilemapsInScene[i].name == "Grass")
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapGrass.SetTile(updatedPos, tile);
+                            }
+                            else if (allTilemapsInScene[i].name == "Hill")
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapHill.SetTile(updatedPos, tile);
+                            }
+                            else if (allTilemapsInScene[i].name == "Water")
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapWater.SetTile(updatedPos, tile);
+                            }
+                            else if (allTilemapsInScene[i].name == "Decorations")
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapDecorations.SetTile(updatedPos, tile);
+                            }
+                            else
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapTest.SetTile(updatedPos, tile);
+                            }
+                            if (allTilemapsInScene[i] != null)
+                            {
+                                Object.Destroy(allTilemapsInScene[i].transform.parent.gameObject);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+  
+
