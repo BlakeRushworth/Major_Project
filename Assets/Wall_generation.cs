@@ -30,6 +30,7 @@ public class Wall_generation : MonoBehaviour
     public Tilemap TilemapHill;
     public Tilemap TilemapWater;
     public Tilemap TilemapDecorations;
+    public Tilemap TilemapTest;
 
 
     void Start()
@@ -92,7 +93,7 @@ public class Wall_generation : MonoBehaviour
         if (Hwall_coordinate.x == 0 || Hwall_coordinate.x == map_size_x - 1)
         {
             touching_edgeWall++;
-            print("touching outerwall:" + touching_edgeWall);
+            //print("touching outerwall:" + touching_edgeWall);
         }
 
         if (Hwall_coordinate.x != 0) // not touching the most left side
@@ -102,7 +103,7 @@ public class Wall_generation : MonoBehaviour
                 if (Hwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching direct left:" + touching_edgeWall);
+                    //print("touching direct left:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] > 0) // left up check
@@ -110,7 +111,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[((int)Hwall_coordinate.x - 1), ((int)Hwall_coordinate.y + 1)] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching left up:" + touching_edgeWall);
+                    //print("touching left up:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] > 0) // left down check
@@ -118,7 +119,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[((int)Hwall_coordinate.x - 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching left down:" + touching_edgeWall);
+                    //print("touching left down:" + touching_edgeWall);
                 }
             }
         }
@@ -130,7 +131,7 @@ public class Wall_generation : MonoBehaviour
                 if (Hwall_state[((int)Hwall_coordinate.x + 1), (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching direct right:" + touching_edgeWall);
+                    //print("touching direct right:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] > 0) // up right check
@@ -138,7 +139,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[(int)Hwall_coordinate.x, ((int)Hwall_coordinate.y + 1)] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching right up:" + touching_edgeWall);
+                    //print("touching right up:" + touching_edgeWall);
                 }
             }
             if (Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] > 0) // down right check
@@ -146,7 +147,7 @@ public class Wall_generation : MonoBehaviour
                 if (Vwall_state[(int)Hwall_coordinate.x, (int)Hwall_coordinate.y] == 2) // if touching a side connector
                 {
                     touching_edgeWall++;
-                    print("touching right down:" + touching_edgeWall);
+                    //print("touching right down:" + touching_edgeWall);
                 }
             }
         
@@ -158,35 +159,35 @@ public class Wall_generation : MonoBehaviour
         if (touching_edgeWall < 2)
         {
             int chance = Random.Range(0, wall_percentage);
-            print("at: " + Hwall_coordinate + " touching: " + touching_edgeWall + " side walls");
+            //print("at: " + Hwall_coordinate + " touching: " + touching_edgeWall + " side walls");
             if (chance == 0)
             {
                 if (touching_edgeWall == 1)
                 {
-                    print("YES: H side wall " + Hwall_coordinate);
+                    //print("YES: H side wall " + Hwall_coordinate);
                     Hwall_state[((int)Hwall_coordinate.x), (int)Hwall_coordinate.y] = 2;
                     Update_coordinate = Hwall_coordinate;
-                    Hwall_Update("none");
+                    Hwall_Update();
                 }
                 else if (touching_edgeWall == 0)
                 {
-                    print("YES: H mid wall " + Hwall_coordinate);
+                    //print("YES: H mid wall " + Hwall_coordinate);
                     Hwall_state[((int)Hwall_coordinate.x), (int)Hwall_coordinate.y] = 1;
                 }
                 else
                 {
-                    print("ERROR: touching_edgeWall invalid integer: " + touching_edgeWall);
+                    //print("ERROR: touching_edgeWall invalid integer: " + touching_edgeWall);
                 }
                 Spawn_Hwall();
             }
             else
             {
-                print("NO: H side wall " + Hwall_coordinate);
+                //print("NO: H side wall " + Hwall_coordinate);
             }
         }
         else
         {
-            print("H wall:" + Hwall_coordinate + " cant spawn: " + touching_edgeWall);
+            //print("H wall:" + Hwall_coordinate + " cant spawn: " + touching_edgeWall);
         }
     }
 
@@ -275,128 +276,129 @@ public class Wall_generation : MonoBehaviour
         if (can_spawnWall)
         {
             int chance = Random.Range(0, wall_percentage);
-            print("at: " + Vwall_coordinate + " touching: " + touching_edgeWall + " side walls");
+            //print("at: " + Vwall_coordinate + " touching: " + touching_edgeWall + " side walls");
             if (chance == 0)
             {
                 if (touching_edgeWall == 1)
                 {
-                    print("YES: V side wall " + Vwall_coordinate);
+                    //print("YES: V side wall " + Vwall_coordinate);
                     Vwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = 2;
                     Update_coordinate = Vwall_coordinate;
-                    Vwall_Update("none");
+                    Vwall_Update();
                 }
                 else if (touching_edgeWall == 0)
                 {
-                    print("YES: V mid wall " + Vwall_coordinate);
+                    //print("YES: V mid wall " + Vwall_coordinate);
                     Vwall_state[(int)Vwall_coordinate.x, (int)Vwall_coordinate.y] = 1;
                 }
                 else
                 {
-                    print("ERROR: touching_edgeWall invalid integer: " + touching_edgeWall);
+                    //print("ERROR: touching_edgeWall invalid integer: " + touching_edgeWall);
                 }
                 Spawn_Vwall();
             }
             else
             {
-                print("NO: V side wall " + Vwall_coordinate);
+                //print("NO: V side wall " + Vwall_coordinate);
             }
 
         }
         else
         {
-            print("V wall:" + Vwall_coordinate + " cant spawn: " + touching_edgeWall);
+            //print("V wall:" + Vwall_coordinate + " cant spawn: " + touching_edgeWall);
         }
     }
 
-    public void Hwall_Update(string connectTouch) //update all walls that are touching to side walls
+    public void Hwall_Update() //update all walls that are touching to side walls
     {
-        if (Update_coordinate.x != 0 && connectTouch == "left") // not touching the most left side
+        if (Update_coordinate.x != 0) // not touching the most left side
         {
             if (Hwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] > 0) //direct left check
             {
                 Hwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y);
-                Hwall_Update("left");
+                Hwall_Update();
             }
             if (Vwall_state[((int)Update_coordinate.x - 1), ((int)Update_coordinate.y + 1)] > 0) // left up check
             {
                 Vwall_state[((int)Update_coordinate.x - 1), ((int)Update_coordinate.y + 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y + 1);
-                Vwall_Update("up");
+                Vwall_Update();
             }
+            print(Update_coordinate);
             if (Vwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] > 0) // left down check
             {
                 Vwall_state[((int)Update_coordinate.x - 1), (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x - 1, (int)Update_coordinate.y);
-                Vwall_Update("down");
+                Vwall_Update();
             }
         }
 
-        if (Update_coordinate.x != map_size_x - 1 && connectTouch == "right") // not touching the most right side
+        if (Update_coordinate.x != map_size_x - 1) // not touching the most right side
         {
             if (Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] == 1) // direct right check
             {
                 Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y);
-                Hwall_Update("right");
+                Hwall_Update();
             }
             if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] == 1) // up right check
             {
                 Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y + 1);
-                Vwall_Update("up");
+                Vwall_Update();
             }
             if (Vwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] == 1) // down right check
             {
                 Vwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y);
-                Vwall_Update("down");
+                Vwall_Update();
             }
         }
     }
 
-    public void Vwall_Update(string connectTouch) //update all walls that are touching to side walls
+    public void Vwall_Update() //update all walls that are touching to side walls
     {
-        if (Update_coordinate.y != 0 && connectTouch == "up") // not touching the most bottom side
+        if (Update_coordinate.y != 0) // not touching the most bottom side
         {
             if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] == 1) //direct down check
             {
                 Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y - 1);
-                Vwall_Update("down");
+                Vwall_Update();
             }
             if (Hwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] == 1) // down left check
             {
                 Hwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y - 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y - 1);
-                Hwall_Update("left");
+                Hwall_Update();
             }
             if (Hwall_state[((int)Update_coordinate.x + 1), ((int)Update_coordinate.y - 1)] == 1) // down right check
             {
                 Hwall_state[((int)Update_coordinate.x + 1), ((int)Update_coordinate.y - 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y - 1);
-                Hwall_Update("right");
+                Hwall_Update();
             }
         }
-        if (Update_coordinate.y != map_size_y - 1 && connectTouch == "down") // not touching the most top side
+        if (Update_coordinate.y != map_size_y - 1) // not touching the most top side
         {
             if (Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] > 0) // direct up check
             {
                 Vwall_state[(int)Update_coordinate.x, ((int)Update_coordinate.y + 1)] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y + 1);
-                Vwall_Update("up");
+                Vwall_Update();
             }
             if (Hwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] > 0) // up left check
             {
                 Hwall_state[(int)Update_coordinate.x, (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x, (int)Update_coordinate.y);
-                Hwall_Update("left");
+                Hwall_Update();
             }
             if (Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] > 0) // up right check
             {
                 Hwall_state[((int)Update_coordinate.x + 1), (int)Update_coordinate.y] = 2;
                 Update_coordinate = new Vector2((int)Update_coordinate.x + 1, (int)Update_coordinate.y);
-                Hwall_Update("right");
+                Hwall_Update();
             }
         }
     }
@@ -433,7 +435,7 @@ public class Wall_generation : MonoBehaviour
             if (allTilemapsInScene[i].tag == "tile")
             {
                 Vector2 pos = allTilemapsInScene[i].transform.parent.position;
-                Debug.Log(pos);
+                //Debug.Log(pos);
 
                 BoundsInt bounds = allTilemapsInScene[i].cellBounds;
 
@@ -472,6 +474,11 @@ public class Wall_generation : MonoBehaviour
                                 Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
                                 TilemapDecorations.SetTile(updatedPos, tile);
                             }
+                            else
+                            {
+                                Vector3Int updatedPos = new Vector3Int(cellPosition.x + (int)pos.x, cellPosition.y + (int)pos.y, 0);
+                                TilemapTest.SetTile(updatedPos, tile);
+                            }
                             if (allTilemapsInScene[i] != null)
                             {
                                 Object.Destroy(allTilemapsInScene[i].transform.parent.gameObject);
@@ -494,12 +501,13 @@ public class Wall_generation : MonoBehaviour
                 grid_coordinate.x = x / tile_size;
                 grid_coordinate.y = y / tile_size;
                 spawn_coords = new Vector3(x, y, 0);
-                //Spawn_Grid();
+                Spawn_Grid();
             }
         }
-        //MergeTilemaps();
+        MergeTilemaps();
         Vwall_Logic();
         Hwall_Logic();
+        TileConveration();
     }
     public void Spawn_Grid()
     {
@@ -510,6 +518,20 @@ public class Wall_generation : MonoBehaviour
         else
         {
             Debug.LogError("Prefab not found at path: " + GridBlock);
+        }
+    }
+
+    public void TileConveration()
+    {
+        for (int x = 0; x < map_size_x * tile_size; x = x + tile_size)
+        {
+            for (int y = 0; y < map_size_y * tile_size; y = y + tile_size)
+            {
+                grid_coordinate.x = x / tile_size;
+                grid_coordinate.y = y / tile_size;
+                spawn_coords = new Vector3(x, y, 0);
+                print(grid_coordinate);
+            }
         }
     }
 }

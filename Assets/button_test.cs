@@ -7,14 +7,8 @@ public class button_test : MonoBehaviour
     
     public GameObject prefab;
 
-    public int Hx = 0;
-    public int Hy = 0;
-
-    public int Vx = 0;
-    public int Vy = 0;
-
-    public int Hx_touchcount = 0;
-    public int Hy_touchcount = 0;
+    public int x = 0;
+    public int y = 0;
 
     public void Start()
     {
@@ -25,8 +19,8 @@ public class button_test : MonoBehaviour
     {
         //GameObject prefabToLoad = Resources.Load<GameObject>(prefabPathInResources);
         //spawn();
-        print("Hwall touch count at: ( " + Hx + " , " + Hy + " ) is " + Wall_generation.Hwall_state[Hx, Hy]);
-        print("Vwall touch count at: ( " + Vx + " , " + Vy + " ) is " + Wall_generation.Vwall_state[Vx, Vy]);
+        print("wall at: ( " + x + " , " + y + " ) is " + HuntandKill_Algorithm.tileIdentifier[x, y]);
+        //print("Vwall touch count at: ( " + Vx + " , " + Vy + " ) is " + Wall_generation.Vwall_state[Vx, Vy]);
         //print("Hwall state at: ( " + Hx + " , " + Hy + " ) is " + map_generation.Hwall_state[Hx, Hy]);
         //print("Vwall state at: ( " + Vx + " , " + Vy + " ) is " + map_generation.Vwall_state[Vx, Vy]);
     }
