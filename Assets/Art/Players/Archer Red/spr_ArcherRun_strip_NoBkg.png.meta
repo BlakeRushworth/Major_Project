@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -335,7 +335,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_ArcherRun_strip_NoBkg_0: -2059313341184450652
+      spr_ArcherRun_strip_NoBkg_1: 3298773136771543401
+      spr_ArcherRun_strip_NoBkg_2: -2522910385747591830
+      spr_ArcherRun_strip_NoBkg_3: 1517452464379883438
+      spr_ArcherRun_strip_NoBkg_4: -4839675686180813581
+      spr_ArcherRun_strip_NoBkg_5: 7017127527191711373
+      spr_ArcherRun_strip_NoBkg_6: 2872329259373745873
+      spr_ArcherRun_strip_NoBkg_7: -4445661109594356626
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
