@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerWalkSOBase : ScriptableObject
 {
@@ -31,7 +32,10 @@ public class PlayerWalkSOBase : ScriptableObject
 
     public virtual void DoPhyscisLogic() { }
 
-    public virtual void DoAnimationTriggerEventLogic(Player.AnimationTriggerType triggerType) { }
+    public virtual void DoAnimationTriggerEventLogic(Player.AnimationTriggerType triggerType) 
+    {
+        
+    }
 
     public virtual void ResetValues() { }
 }
