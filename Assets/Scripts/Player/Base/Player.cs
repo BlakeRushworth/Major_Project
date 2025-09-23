@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IPlayerDamagable, IPlayerMoveable, IPlayerStateCheckable
 {
+    protected Animator anim;
+
+
     [field: SerializeField] public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
     public Rigidbody2D RB { get; set; }
@@ -43,6 +46,9 @@ public class Player : MonoBehaviour, IPlayerDamagable, IPlayerMoveable, IPlayerS
         IdleState = new PlayerIdleState(this, StateMachine);
         WalkState = new PlayerWalkState(this, StateMachine);
         AttackState = new PlayerAttackState(this, StateMachine);
+
+        this.anim = gameObject.GetComponent<Animator>();
+
     }
 
     private void Start()
@@ -108,9 +114,24 @@ public class Player : MonoBehaviour, IPlayerDamagable, IPlayerMoveable, IPlayerS
     #endregion
 
     #region AnimationTriggers
-    private void AnimatoinTriggerEvent(AnimationTriggerType triggerType)
+    private void AnimationTriggerEvent(AnimationTriggerType triggerType)
     {
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
+        if (triggerType == Player.AnimationTriggerType.PlayerIdle)
+        {
+            anim.SetBool("Attack", false);
+            anim.SetBool("Walk", false);
+        }
+        else if (triggerType == Player.AnimationTriggerType.PlayerWalk)
+        {
+            anim.SetBool("Attack", false);
+            anim.SetBool("Walk", true);
+        }
+        else if (triggerType == Player.AnimationTriggerType.PlayerAttack)
+        {
+            anim.SetBool("Attack", true);
+            anim.SetBool("Walk", false);
+        }
     }
 
 

@@ -505,8 +505,8 @@ public class Wall_generation : MonoBehaviour
             }
         }
         MergeTilemaps();
-        Vwall_Logic();
-        Hwall_Logic();
+        //Vwall_Logic();
+        //Hwall_Logic();
         TileConveration();
     }
     public void Spawn_Grid()

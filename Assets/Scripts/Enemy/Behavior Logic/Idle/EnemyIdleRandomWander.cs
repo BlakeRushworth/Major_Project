@@ -16,7 +16,7 @@ public class EnemyIdleRandomWander : EnemyIdleSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-
+        
         _targetPos = GetRandomPointInCircle();
     }
 

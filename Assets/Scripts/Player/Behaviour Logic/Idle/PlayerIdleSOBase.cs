@@ -31,7 +31,7 @@ public class PlayerIdleSOBase : ScriptableObject
 
     public virtual void DoPhyscisLogic() { }
 
-    public virtual void DoAnimationTriggerEventLogic(Player.AnimationTriggerType triggerType) { }
+    public virtual void DoAnimationTriggerEventLogic(Player.AnimationTriggerType triggerType) {    }
 
     public virtual void ResetValues() { }
 }
