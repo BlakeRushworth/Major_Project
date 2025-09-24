@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState
 {
+    private Vector2 movement;
+
     public override void Enter(PlayerStateMachine player)
     {
         player.changeAnim(PlayerStateMachine.states.Walk);
@@ -15,20 +17,28 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        
 
-        if (Mathf.Abs(move) < 0.1f)
+        if (movement == Vector2.zero)
         {
             player.ChangeState(PlayerStateMachine.states.Idle);
         }
-        
-        player.RB.linearVelocity = new Vector2(move * player.speed, 0);
-        Debug.Log(move);
-        if (move < 0)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
+        {
+            player.ChangeState(PlayerStateMachine.states.Attack);
+        }
+
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        player.RB.MovePosition(player.RB.position + movement * player.speed * Time.deltaTime);
+        //Debug.Log(movement);
+
+        if (movement.x < 0)
         {
             player.SR.flipX = true;
         }
-        else
+        else if (movement.x > 0)
         {
             player.SR.flipX = false;
         }

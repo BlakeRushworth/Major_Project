@@ -5,7 +5,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     public float MaxHealth = 100f;
     public float CurrentHealth;
-    public float speed = 5f;
+    public float speed = 10f;
 
     [HideInInspector]
     public Rigidbody2D RB;
@@ -19,7 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public enum states
     {
-        Idle, Walk, Attack, Damaged
+        Idle, Walk, Attack, Hit, Death, Roll
     }
 
     void Start()
@@ -33,8 +33,10 @@ public class PlayerStateMachine : MonoBehaviour
         {
             { states.Idle, new PlayerIdleState() },
             { states.Walk, new PlayerWalkState() },
-  /*          { states.Attack, new PlayerAttackState() },
-            { states.Damaged, new PlayerDamagedState() }*/
+            { states.Attack, new PlayerAttackState() },
+            { states.Roll, new PlayerRollState() },
+            { states.Hit, new PlayerHitState() },
+            { states.Death, new PlayerDeathState() }
         };
 
         ChangeState(states.Idle);

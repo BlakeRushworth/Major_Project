@@ -55,7 +55,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
             for (int y = 0; y < mapSize.y; y++)
             {
                 string name = (tileIdentifier[x, y]).ToString();
-                print("name: " + name);
+                //print("name: " + name);
                 Coordinate = new Vector2(x * cubeSize, y * cubeSize);
                 for (int i = 0; i < tiles.Length; i++)
                 {
@@ -80,7 +80,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
         mapSize.x = Random.Range(3, 6);
         mapSize.y = Random.Range(3, 6);
         tileIdentifier = new int[mapSize.x, mapSize.y];
-        print("mapsize: " + mapSize);
+        //print("mapsize: " + mapSize);
 
 
         if (Random.Range(0, 2) == 0) //top or bottom
@@ -107,7 +107,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
                 starting_pos.x = mapSize.x - 1;
             }
         }
-        print("starting at: " + starting_pos);
+        //print("starting at: " + starting_pos);
         currentTile = starting_pos;
         //tileIdentifier[currentTile.x, currentTile.y] = 1;
     }
@@ -169,9 +169,9 @@ public class HuntandKill_Algorithm : MonoBehaviour
         }
         if (directionCount != 0)
         {
-            print("count: " + directionCount);
+            //print("count: " + directionCount);
             randomDirection = Random.Range(0, directionCount);
-            print("random value: " + randomDirection);
+            //print("random value: " + randomDirection);
             var count = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -180,7 +180,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
                     if (randomDirection == count)
                     {
                         directionChosen = i;
-                        print("direction Chosen: " + directionChosen);
+                        //print("direction Chosen: " + directionChosen);
                         break;
                     }
                     else
@@ -194,14 +194,14 @@ public class HuntandKill_Algorithm : MonoBehaviour
         }
         else
         {
-            print("no options :)");
+            //print("no options :)");
             scan();
         }
     }
 
     public void changeCurrentCoordinate()
     {
-        print("changing from: " + currentTile);
+        //print("changing from: " + currentTile);
         if (directionChosen == NORTH)
         {
             tileIdentifier[currentTile.x, currentTile.y] += UP;
@@ -226,23 +226,23 @@ public class HuntandKill_Algorithm : MonoBehaviour
             currentTile = new Vector2Int(currentTile.x + 1, currentTile.y);
             tileIdentifier[currentTile.x, currentTile.y] += LEFT;
         }
-        print("reset, now at: " + currentTile);
+        //print("reset, now at: " + currentTile);
         //tileIdentifier[currentTile.x, currentTile.y] += 1;
         algorithm();
     }
 
     public void scan()
     {
-        print(mapSize.x);
-        print(mapSize.y);
+        //print(mapSize.x);
+        //print(mapSize.y);
         for (int x = 0; x < mapSize.x; x++)
         {
             for (int y = 0; y < mapSize.y; y++)
             {
-                print(x + " " + y);
+                //print(x + " " + y);
                 if (tileIdentifier[x, y] == 0)
                 {
-                    print("doesnt exist");
+                    //print("doesnt exist");
                     if (y != mapSize.y - 1)
                     {
                         if (tileIdentifier[x, y + 1] != 0)
@@ -283,7 +283,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
                 }
             }
         }
-        print("all done!");
+        //print("all done!");
         spawn_walls();
     }
 
