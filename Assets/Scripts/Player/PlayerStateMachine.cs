@@ -59,6 +59,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void changeAnim(states stateName) 
     {
+        anim.SetBool("Attack", stateName == states.Attack);
+        anim.SetBool("Walk", stateName == states.Walk);
+        anim.SetBool("Roll", stateName == states.Roll);
+        /*
         if (stateName == states.Idle)
         {
             anim.SetBool("Attack", false);
@@ -74,6 +78,7 @@ public class PlayerStateMachine : MonoBehaviour
             anim.SetBool("Attack", true);
             anim.SetBool("Walk", false);
         }
+        */
 
         /*OR You can do it this way apparently, bit of fun
         anim.SetBool("Attack", stateName == states.Attack);

@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerAttackState : PlayerBaseState
 {
     bool animationFinished;
+
     public override void Enter(PlayerStateMachine player)
     {
         player.changeAnim(PlayerStateMachine.states.Attack);
@@ -17,17 +18,18 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        if (animationFinished == true) //left mouse
-        {
-            Debug.Log("change out of attack");
-            player.ChangeState(PlayerStateMachine.states.Idle);
-        }
+        //if (animationFinished == true) //left mouse
+        //{
+        //    Debug.Log("change out of attack");
+            
+        //}
     }
 
-    public void finishedAnimation()
+    public override void finishedAnimation(PlayerStateMachine player)
     {
         Debug.Log("transition success");
         animationFinished = true;
+        player.ChangeState(PlayerStateMachine.states.Idle);
     }
 
 }

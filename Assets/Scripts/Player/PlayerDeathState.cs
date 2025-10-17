@@ -16,4 +16,9 @@ public class PlayerDeathState : PlayerBaseState
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
     }
+
+    public override void finishedAnimation(PlayerStateMachine player)
+    {
+
+    }
 }

@@ -23,9 +23,15 @@ public class PlayerWalkState : PlayerBaseState
         {
             player.ChangeState(PlayerStateMachine.states.Idle);
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
         {
             player.ChangeState(PlayerStateMachine.states.Attack);
+        }
+
+        if (Input.GetKey(KeyCode.Q) == true)
+        {
+            player.ChangeState(PlayerStateMachine.states.Roll);
         }
 
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -42,6 +48,11 @@ public class PlayerWalkState : PlayerBaseState
         {
             player.SR.flipX = false;
         }
+
+    }
+
+    public override void finishedAnimation(PlayerStateMachine player)
+    {
 
     }
 }

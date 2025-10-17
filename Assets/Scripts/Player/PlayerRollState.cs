@@ -17,4 +17,9 @@ public class PlayerRollState : PlayerBaseState
     {
 
     }
+
+    public override void finishedAnimation(PlayerStateMachine player)
+    {
+        player.ChangeState(PlayerStateMachine.states.Idle);
+    }
 }
