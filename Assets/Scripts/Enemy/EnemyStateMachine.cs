@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine : MonoBehaviour
+public class EnemyStateMachine : MonoBehaviour
 {
     public float MaxHealth = 20f;
     public float CurrentHealth;
     public float speed = 10f;
     public float rollSpeed = 20f;
-   
+
     [HideInInspector]
     public Rigidbody2D RB;
     [HideInInspector]
@@ -15,14 +15,14 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector]
     public Animator anim;
 
-    public Dictionary<states, PlayerBaseState> statesDict;
-    public PlayerBaseState currentState;
+    public Dictionary<states, EnemyBaseState> statesDict;
+    public EnemyBaseState currentState;
 
     public GameObject arrow;
 
     public enum states
     {
-        Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll
+        Idle, Walk, Attack, Hit, Death
     }
 
     void Start()
@@ -32,15 +32,13 @@ public class PlayerStateMachine : MonoBehaviour
         anim = GetComponent<Animator>();
         CurrentHealth = MaxHealth;
 
-        statesDict = new Dictionary<states, PlayerBaseState>
+        statesDict = new Dictionary<states, EnemyBaseState>
         {
-            { states.Idle, new PlayerIdleState() },
-            { states.Walk, new PlayerWalkState() },
-            { states.RangeAttack, new PlayerRangeAttackState() },
-            { states.MeleeAttack, new PlayerMeleeAttackState() },
-            { states.Hit, new PlayerHitState() },
-            { states.Death, new PlayerDeathState() },
-            { states.Roll, new PlayerRollState() }
+            { states.Idle, new EnemyIdleState() },
+            { states.Walk, new EnemyWalkState() },
+            { states.Attack, new EnemyAttackState() },
+            { states.Hit, new EnemyHitState() },
+            { states.Death, new EnemyDeathState() }
         };
 
         ChangeState(states.Idle);
@@ -49,11 +47,11 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       currentState?.PhysicsUpdate(this);
+        currentState?.PhysicsUpdate(this);
         //Debug.Log(CurrentHealth);
         if (CurrentHealth <= 0)
         {
-            ChangeState(PlayerStateMachine.states.Death);
+            ChangeState(EnemyStateMachine.states.Death);
         }
     }
 
@@ -66,14 +64,11 @@ public class PlayerStateMachine : MonoBehaviour
 
 
 
-    public void changeAnim(states stateName) 
+    public void changeAnim(states stateName)
     {
-        anim.SetBool("RangeAttack", stateName == states.RangeAttack);
-        anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
+        anim.SetBool("Attack", stateName == states.Attack);
         anim.SetBool("Walk", stateName == states.Walk);
-        anim.SetBool("Roll", stateName == states.Roll);
         anim.SetBool("Death", stateName == states.Death);
         anim.SetBool("Hit", stateName == states.Hit);
     }
-
 }
