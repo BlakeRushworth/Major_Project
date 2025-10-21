@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class PlayerAttackState : PlayerBaseState
+public class PlayerMeleeAttackState : PlayerBaseState
 {
     bool animationFinished;
 
     public override void Enter(PlayerStateMachine player)
     {
-        player.changeAnim(PlayerStateMachine.states.Attack);
+        player.changeAnim(PlayerStateMachine.states.MeleeAttack);
         Debug.Log("Entered Attack");
         animationFinished = false;
     }
@@ -18,11 +18,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        //if (animationFinished == true) //left mouse
-        //{
-        //    Debug.Log("change out of attack");
-            
-        //}
     }
 
     public override void finishedAnimation(PlayerStateMachine player)

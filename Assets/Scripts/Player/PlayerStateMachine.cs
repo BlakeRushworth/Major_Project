@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    public float MaxHealth = 100f;
+    public float MaxHealth = 20f;
     public float CurrentHealth;
     public float speed = 10f;
+    public float rollSpeed = 20f;
 
     [HideInInspector]
     public Rigidbody2D RB;
@@ -17,9 +18,11 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<states, PlayerBaseState> statesDict;
     public PlayerBaseState currentState;
 
+    public GameObject arrow;
+
     public enum states
     {
-        Idle, Walk, Attack, Hit, Death, Roll
+        Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll
     }
 
     void Start()
@@ -33,10 +36,11 @@ public class PlayerStateMachine : MonoBehaviour
         {
             { states.Idle, new PlayerIdleState() },
             { states.Walk, new PlayerWalkState() },
-            { states.Attack, new PlayerAttackState() },
-            { states.Roll, new PlayerRollState() },
+            { states.RangeAttack, new PlayerRangeAttackState() },
+            { states.MeleeAttack, new PlayerMeleeAttackState() },
             { states.Hit, new PlayerHitState() },
-            { states.Death, new PlayerDeathState() }
+            { states.Death, new PlayerDeathState() },
+            { states.Roll, new PlayerRollState() }
         };
 
         ChangeState(states.Idle);
@@ -46,6 +50,11 @@ public class PlayerStateMachine : MonoBehaviour
     void FixedUpdate()
     {
        currentState?.PhysicsUpdate(this);
+        //Debug.Log(CurrentHealth);
+        if (CurrentHealth <= 0)
+        {
+            ChangeState(PlayerStateMachine.states.Death);
+        }
     }
 
     public void ChangeState(states stateName)
@@ -59,31 +68,12 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void changeAnim(states stateName) 
     {
-        anim.SetBool("Attack", stateName == states.Attack);
+        anim.SetBool("RangeAttack", stateName == states.RangeAttack);
+        anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
         anim.SetBool("Walk", stateName == states.Walk);
         anim.SetBool("Roll", stateName == states.Roll);
-        /*
-        if (stateName == states.Idle)
-        {
-            anim.SetBool("Attack", false);
-            anim.SetBool("Walk", false);
-        }
-        else if (stateName == states.Walk)
-        {
-            anim.SetBool("Attack", false);
-            anim.SetBool("Walk", true);
-        }
-        else if (stateName == states.Attack)
-        {
-            anim.SetBool("Attack", true);
-            anim.SetBool("Walk", false);
-        }
-        */
-
-        /*OR You can do it this way apparently, bit of fun
-        anim.SetBool("Attack", stateName == states.Attack);
-        anim.SetBool("Walk", stateName == states.Walk);*/
-
+        anim.SetBool("Death", stateName == states.Death);
+        anim.SetBool("Hit", stateName == states.Hit);
     }
 
 }

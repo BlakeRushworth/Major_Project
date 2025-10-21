@@ -22,23 +22,33 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        Debug.Log("UPDATING IDLE");
-
-        if (movement != Vector2.zero)
-        {
-            player.ChangeState(PlayerStateMachine.states.Walk);
-        }
+        //Debug.Log("UPDATING IDLE");
         
         if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
         {
-            Debug.Log("click");
-            player.ChangeState(PlayerStateMachine.states.Attack);
+            Debug.Log("left click");
+            player.ChangeState(PlayerStateMachine.states.RangeAttack);
+            //return;
         }
 
-        if (Input.GetKey(KeyCode.Q) == true)
+        else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
         {
-            Debug.Log("go to roll");
+            Debug.Log("right click");
+            player.ChangeState(PlayerStateMachine.states.MeleeAttack);
+            //return;
+        }
+
+        else if (Input.GetKey(KeyCode.Q) == true)
+        {
+            Debug.Log("idle to roll");
             player.ChangeState(PlayerStateMachine.states.Roll);
+            //return;
+        }
+
+        else if (movement != Vector2.zero)
+        {
+            player.ChangeState(PlayerStateMachine.states.Walk);
+            //return;
         }
 
         movement.x = Input.GetAxisRaw("Horizontal");

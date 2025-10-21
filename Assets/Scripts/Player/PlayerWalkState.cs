@@ -19,19 +19,31 @@ public class PlayerWalkState : PlayerBaseState
     {
         
 
-        if (movement == Vector2.zero)
-        {
-            player.ChangeState(PlayerStateMachine.states.Idle);
-        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
         {
-            player.ChangeState(PlayerStateMachine.states.Attack);
+            player.ChangeState(PlayerStateMachine.states.RangeAttack);
+            //return;
         }
 
-        if (Input.GetKey(KeyCode.Q) == true)
+        else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
         {
+            Debug.Log("right click");
+            player.ChangeState(PlayerStateMachine.states.MeleeAttack);
+            //return;
+        }
+
+        else if (Input.GetKey(KeyCode.Q) == true)
+        {
+            Debug.Log("walk to roll");
             player.ChangeState(PlayerStateMachine.states.Roll);
+            //return;
+        }
+
+        else if (movement == Vector2.zero)
+        {
+            player.ChangeState(PlayerStateMachine.states.Idle);
+            //return;
         }
 
         movement.x = Input.GetAxisRaw("Horizontal");
