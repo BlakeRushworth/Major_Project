@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
@@ -26,7 +27,6 @@ public class PlayerStateMachine : MonoBehaviour
     public GameObject arrow;
     public GameObject enemy;
 
-    private bool DeathOnce = false;
     public enum states
     {
         Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll
@@ -61,13 +61,14 @@ public class PlayerStateMachine : MonoBehaviour
         health_bar_test.maxHealth = MaxHealth;
         currentState?.PhysicsUpdate(this);
         //Debug.Log(CurrentHealth);
-        if (CurrentHealth <= 0 && !DeathOnce)
-        {
-            DeathOnce = true;
-            Debug.Log("transitoin to death");
-            ChangeState(PlayerStateMachine.states.Death);
-        }
 
+        
+        if (CurrentHealth <= 0)
+        {
+            anim.SetBool("DeathLock", true);
+            ChangeState(states.Death);
+        }
+        
         if (hitCooldown)
         {
             StartCoroutine(BeenHit());
@@ -86,11 +87,11 @@ public class PlayerStateMachine : MonoBehaviour
     public void changeAnim(states stateName) 
     {
         anim.SetBool("RangeAttack", stateName == states.RangeAttack);
-        anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
-        anim.SetBool("Walk", stateName == states.Walk);
-        anim.SetBool("Roll", stateName == states.Roll);
-        anim.SetBool("Death", stateName == states.Death);
-        anim.SetBool("Hit", stateName == states.Hit);
+         anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
+         anim.SetBool("Walk", stateName == states.Walk);
+         anim.SetBool("Roll", stateName == states.Roll);
+         anim.SetBool("Death", stateName == states.Death);
+         anim.SetBool("Hit", stateName == states.Hit);
     }
 
     IEnumerator BeenHit()
