@@ -42,18 +42,18 @@ public class spawnEnemy : MonoBehaviour
         Vector2 randomPointInsideCircle = GetRandomPointInsideCircle(player.transform.position, radius);
         //Debug.Log("Random point inside circle: " + randomPointInsideCircle);
         Vector3Int cellPosition = targetTilemap.WorldToCell(randomPointInsideCircle);
-        Debug.Log("cell pos: " + cellPosition);
+        //Debug.Log("cell pos: " + cellPosition);
 
         TileBase tileAtPosition = targetTilemap.GetTile(cellPosition);
 
         if (tileAtPosition == null)
         {
-            Debug.Log("can spawn");
+            //Debug.Log("can spawn");
             Instantiate(test, randomPointInsideCircle, Quaternion.identity);
         }
         else
         {
-            Debug.Log("can't spawn");
+            //Debug.Log("can't spawn");
             SpawnEnemy();
         }
     }

@@ -5,7 +5,7 @@ public class EnemyHitState : EnemyBaseState
     private Vector2 movement;
     public override void Enter(EnemyStateMachine enemy)
     {
-
+        enemy.changeAnim(EnemyStateMachine.states.Hit);
     }
 
     public override void Exit(EnemyStateMachine enemy)

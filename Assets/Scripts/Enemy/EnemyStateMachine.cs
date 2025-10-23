@@ -6,7 +6,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float MaxHealth = 20f;
     public float CurrentHealth;
     public float speed = 10f;
-    public float rollSpeed = 20f;
+    public float detect_dist = 10f;
 
     [HideInInspector]
     public Rigidbody2D RB;
@@ -17,8 +17,6 @@ public class EnemyStateMachine : MonoBehaviour
 
     public Dictionary<states, EnemyBaseState> statesDict;
     public EnemyBaseState currentState;
-
-    public GameObject arrow;
 
     public enum states
     {
