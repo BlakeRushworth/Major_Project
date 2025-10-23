@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 public class EnemyIdleState : EnemyBaseState
 {
     Rigidbody2D player;
+
     public override void Enter(EnemyStateMachine enemy)
     {
         enemy.changeAnim(EnemyStateMachine.states.Idle);
@@ -21,6 +22,11 @@ public class EnemyIdleState : EnemyBaseState
 
     }
 
+    public override void attackcheck(EnemyStateMachine enemy)
+    {
+
+    }
+
     public override void PhysicsUpdate(EnemyStateMachine enemy)
     {
 
@@ -32,6 +38,15 @@ public class EnemyIdleState : EnemyBaseState
         // Perform a Raycast between the enemy and the player
         Debug.DrawRay(enemyPos, direction, color: Color.white);
         RaycastHit2D hit = Physics2D.Raycast(enemyPos, direction, distance);
+
+        if (direction.x > 0)
+        {
+            enemy.SR.flipX = true;
+        }
+        else if (direction.x < 0)
+        {
+            enemy.SR.flipX = false;
+        }
 
         if (distance <= enemy.detect_dist)
         {
@@ -49,14 +64,14 @@ public class EnemyIdleState : EnemyBaseState
                 if (hit.collider is not TilemapCollider2D)
                 {
                     Debug.DrawRay(enemyPos, direction, color: Color.yellow);
-                    Debug.Log($"Object '{hit.collider.name}' is blocking the view.");
+                    //Debug.Log($"Object '{hit.collider.name}' is blocking the view.");
 
                     enemy.ChangeState(EnemyStateMachine.states.Walk);
                 }
                 else
                 {
                     Debug.DrawRay(enemyPos, direction, color: Color.red);
-                    Debug.Log($" View is blocked by tilemap '{hit.collider.name}'.");
+                    //Debug.Log($" View is blocked by tilemap '{hit.collider.name}'.");
                 }
             }
             else

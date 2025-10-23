@@ -17,6 +17,11 @@ public class EnemyDeathState : EnemyBaseState
 
     }
 
+    public override void attackcheck(EnemyStateMachine enemy)
+    {
+
+    }
+
     public override void PhysicsUpdate(EnemyStateMachine enemy)
     {
     }

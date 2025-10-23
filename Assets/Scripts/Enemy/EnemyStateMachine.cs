@@ -7,6 +7,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float CurrentHealth;
     public float speed = 10f;
     public float detect_dist = 10f;
+    public float attack_dist = 2f;
 
     [HideInInspector]
     public Rigidbody2D RB;

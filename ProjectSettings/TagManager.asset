@@ -6,6 +6,7 @@ TagManager:
   tags:
   - tile
   - player arrow
+  - Enemy
   layers:
   - Default
   - TransparentFX

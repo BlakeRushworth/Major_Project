@@ -1,13 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    public float MaxHealth = 20f;
+    public float MaxHealth = 100f;
     public float CurrentHealth;
     public float speed = 10f;
     public float rollSpeed = 20f;
-   
+    public float hitCooldownDuration = 2f;
+
+
+    public bool hitCooldown = false;
+
     [HideInInspector]
     public Rigidbody2D RB;
     [HideInInspector]
@@ -19,7 +24,9 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerBaseState currentState;
 
     public GameObject arrow;
+    public GameObject enemy;
 
+    private bool DeathOnce = false;
     public enum states
     {
         Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll
@@ -27,6 +34,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
+
         RB = GetComponent<Rigidbody2D>();
         SR = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -49,11 +57,20 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       currentState?.PhysicsUpdate(this);
+        health_bar_test.currentHealth = CurrentHealth;
+        health_bar_test.maxHealth = MaxHealth;
+        currentState?.PhysicsUpdate(this);
         //Debug.Log(CurrentHealth);
-        if (CurrentHealth <= 0)
+        if (CurrentHealth <= 0 && !DeathOnce)
         {
+            DeathOnce = true;
+            Debug.Log("transitoin to death");
             ChangeState(PlayerStateMachine.states.Death);
+        }
+
+        if (hitCooldown)
+        {
+            StartCoroutine(BeenHit());
         }
     }
 
@@ -76,4 +93,15 @@ public class PlayerStateMachine : MonoBehaviour
         anim.SetBool("Hit", stateName == states.Hit);
     }
 
+    IEnumerator BeenHit()
+    {
+        Debug.Log("can hit! woo");
+        CurrentHealth -= 10f;
+        SR.color = Color.red;
+        hitCooldown = false;
+        yield return new WaitForSeconds(hitCooldownDuration); // Wait for 2 seconds
+        hitCooldown = false;
+        SR.color = Color.white;
+        Debug.Log("hit Countdown finished!");
+    }
 }

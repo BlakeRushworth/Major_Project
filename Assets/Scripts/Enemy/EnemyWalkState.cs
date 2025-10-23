@@ -20,6 +20,11 @@ public class EnemyWalkState : EnemyBaseState
 
     }
 
+    public override void attackcheck(EnemyStateMachine enemy)
+    {
+
+    }
+
     public override void PhysicsUpdate(EnemyStateMachine enemy)
     {
         Vector2 enemyPos = enemy.transform.position;
@@ -30,19 +35,23 @@ public class EnemyWalkState : EnemyBaseState
         // Perform a Raycast between the enemy and the player
         Debug.DrawRay(enemyPos, direction, color: Color.white);
         RaycastHit2D hit = Physics2D.Raycast(enemyPos, direction, distance);
-
+        if (distance <= enemy.attack_dist)
+        {
+            enemy.ChangeState(EnemyStateMachine.states.Attack);
+            return;
+        }
         if (hit.collider != null)
         {
             if (hit.collider is TilemapCollider2D)
             {
                 Debug.DrawRay(enemyPos, direction, color: Color.red);
-                Debug.Log($" View is blocked by tilemap '{hit.collider.name}'.");
+                //Debug.Log($" View is blocked by tilemap '{hit.collider.name}'.");
                 enemy.ChangeState(EnemyStateMachine.states.Idle);
             }
             else
             {
                 Debug.DrawRay(enemyPos, direction, color: Color.yellow);
-                Debug.Log($"Object '{hit.collider.name}' is blocking the view.");
+                //Debug.Log($"Object '{hit.collider.name}' is blocking the view.");
 
                 
             }
