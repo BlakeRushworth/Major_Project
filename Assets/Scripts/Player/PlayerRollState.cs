@@ -11,10 +11,16 @@ public class PlayerRollState : PlayerBaseState
 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
+        Debug.Log(stanima_bar.currentStanima);
         if (movement == Vector2.zero)
         {
             player.ChangeState(PlayerStateMachine.states.Idle);
+        }
+        else
+        {
+            stanima_bar.currentStanima -= stanima_bar.stanima_cost;
+            Debug.Log("rolled cost done");
+            Debug.Log(stanima_bar.currentStanima);
         }
     }
 

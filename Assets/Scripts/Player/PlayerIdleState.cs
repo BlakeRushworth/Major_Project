@@ -38,7 +38,7 @@ public class PlayerIdleState : PlayerBaseState
             //return;
         }
 
-        else if (Input.GetKey(KeyCode.Q) == true)
+        else if (Input.GetKey(KeyCode.Q) == true && stanima_bar.currentStanima > stanima_bar.stanima_cost)
         {
             Debug.Log("idle to roll");
             player.ChangeState(PlayerStateMachine.states.Roll);

@@ -11,7 +11,7 @@ public class unparent : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("hello awake");
+        //Debug.Log("hello awake");
         transform.parent = null;
     }
 

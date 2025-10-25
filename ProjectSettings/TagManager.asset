@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - player spawnpoint
   - portal spawnpoint
+  - obelisk spawnpoint
+  - Obelisk
   layers:
   - Default
   - TransparentFX

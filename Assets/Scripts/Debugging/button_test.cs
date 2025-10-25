@@ -19,10 +19,15 @@ public class button_test : MonoBehaviour
     {
         //GameObject prefabToLoad = Resources.Load<GameObject>(prefabPathInResources);
         //spawn();
-        print("wall at: ( " + x + " , " + y + " ) is " + HuntandKill_Algorithm.tileIdentifier[x, y]);
+        //print("wall at: ( " + x + " , " + y + " ) is " + HuntandKill_Algorithm.tileIdentifier[x, y]);
         //print("Vwall touch count at: ( " + Vx + " , " + Vy + " ) is " + Wall_generation.Vwall_state[Vx, Vy]);
         //print("Hwall state at: ( " + Hx + " , " + Hy + " ) is " + map_generation.Hwall_state[Hx, Hy]);
         //print("Vwall state at: ( " + Vx + " , " + Vy + " ) is " + map_generation.Vwall_state[Vx, Vy]);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach ( GameObject enemy in enemies)
+        {
+            Object.Destroy(enemy);
+        }
     }
 
     public void spawn()

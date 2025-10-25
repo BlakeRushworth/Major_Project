@@ -21,7 +21,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     public enum states
     {
-        Idle, Walk, Attack, Hit, Death
+        Idle, Walk, Attack, Hit, Death, Spawn
     }
 
     void Start()
@@ -33,6 +33,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         statesDict = new Dictionary<states, EnemyBaseState>
         {
+            { states.Spawn, new EnemySpawnState() },
             { states.Idle, new EnemyIdleState() },
             { states.Walk, new EnemyWalkState() },
             { states.Attack, new EnemyAttackState() },
@@ -40,7 +41,7 @@ public class EnemyStateMachine : MonoBehaviour
             { states.Death, new EnemyDeathState() }
         };
 
-        ChangeState(states.Idle);
+        ChangeState(states.Spawn);
     }
 
     // Update is called once per frame
@@ -65,6 +66,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void changeAnim(states stateName)
     {
+        anim.SetBool("Spawn", stateName == states.Spawn);
         anim.SetBool("Attack", stateName == states.Attack);
         anim.SetBool("Walk", stateName == states.Walk);
         anim.SetBool("Death", stateName == states.Death);

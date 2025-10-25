@@ -1,36 +1,80 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Spawn_Manager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject Portal;
+    public GameObject Obelisk;
+    public Rigidbody2D player;
+
+    public int obelisk_chance = 4;
+
+    private bool spawnPortalOnce = false;
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("player spawnpoint");
+        if (playerObjects.Length > 0)
+        {
+            int randspawn = Random.Range(0, playerObjects.Length);
+            Vector2 spawn_pos = playerObjects[randspawn].transform.position;
+            player.position = spawn_pos;
+        }
+
+        GameObject[] obeliskObjects = GameObject.FindGameObjectsWithTag("obelisk spawnpoint");
+        if (obeliskObjects.Length > 0)
+        {
+            Debug.Log("obelisk: " + obeliskObjects.Length);
+            foreach (GameObject obelisk in obeliskObjects)
+            {
+                int rand = Random.Range(0, obelisk_chance);
+                Debug.Log(rand);
+                if (rand == 0)
+                {
+                    // Do something with each portal object
+                    Debug.Log("Found obrlisk spawn: " + obelisk.name);
+                    Instantiate(Obelisk, obelisk.transform.position, Quaternion.identity);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("player spawnpoint");
-        if (playerObjects.Length > 0)
+        int count = 0;
+        GameObject[] obeliskObjects = GameObject.FindGameObjectsWithTag("Obelisk");
+        if (!spawnPortalOnce)
         {
-            foreach (GameObject player in playerObjects)
+            if (obeliskObjects.Length > 0)
             {
-                // Do something with each player object
-                Debug.Log("Found player spawn: " + player.name);
+                for (int i = 0; i < obeliskObjects.Length; i++) 
+                {
+                    bool obeliskDone = obeliskObjects[i].GetComponent<Animator>().GetBool("done");
+                    if (obeliskDone == true)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            if (count == obeliskObjects.Length)
+            {
+                spawnPortalOnce = true;
+                spawn_portal();
             }
         }
+    }
+    
 
+public void spawn_portal()
+    {
         GameObject[] portalObjects = GameObject.FindGameObjectsWithTag("portal spawnpoint");
         if (portalObjects.Length > 0)
         {
-            foreach (GameObject portal in portalObjects)
-            {
-                // Do something with each portal object
-                Debug.Log("Found portal spawn: " + portal.name);
-            }
+            int randspawn = Random.Range(0, portalObjects.Length);
+            Instantiate(Portal, portalObjects[randspawn].transform.position, Quaternion.identity);
+            
         }
-        */
     }
 }
