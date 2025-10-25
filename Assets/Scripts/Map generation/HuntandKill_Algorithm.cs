@@ -342,6 +342,20 @@ public class HuntandKill_Algorithm : MonoBehaviour
                             }
                             if (allTilemapsInScene[i] != null)
                             {
+                                /*
+                                GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("player spawnpoint");
+                                if (playerObjects.Length > 0)
+                                {
+                                    foreach (GameObject player in playerObjects)
+                                    {
+                                        if (player == allTilemapsInScene[i].transform.GetChild(5))
+                                        {
+                                            Debug.Log("Found player spawn: " + player.name);
+                                        }
+                                    }
+                                }
+                                */
+                                //Debug.Log("am i happening?");
                                 Object.Destroy(allTilemapsInScene[i].transform.parent.gameObject);
                             }
                         }

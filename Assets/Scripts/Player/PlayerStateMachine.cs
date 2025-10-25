@@ -62,8 +62,8 @@ public class PlayerStateMachine : MonoBehaviour
         currentState?.PhysicsUpdate(this);
         //Debug.Log(CurrentHealth);
 
-        
-        if (CurrentHealth <= 0)
+
+        if (CurrentHealth <= 0 && anim.GetBool("DeathLock") == false) 
         {
             anim.SetBool("DeathLock", true);
             ChangeState(states.Death);
@@ -86,7 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void changeAnim(states stateName) 
     {
-        anim.SetBool("RangeAttack", stateName == states.RangeAttack);
+         anim.SetBool("RangeAttack", stateName == states.RangeAttack);
          anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
          anim.SetBool("Walk", stateName == states.Walk);
          anim.SetBool("Roll", stateName == states.Roll);

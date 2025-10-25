@@ -4,7 +4,7 @@ public class PlayerDeathState : PlayerBaseState
 {
     public override void Enter(PlayerStateMachine player)
     {
-        player.changeAnim(PlayerStateMachine.states.Death);
+        player.anim.SetTrigger("Death1");
         Debug.Log("Entered Death");
     }
 
@@ -15,6 +15,7 @@ public class PlayerDeathState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
+        player.RB.bodyType = RigidbodyType2D.Static;
     }
 
     public override void finishedAnimation(PlayerStateMachine player)

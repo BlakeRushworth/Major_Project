@@ -25,5 +25,6 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void PhysicsUpdate(EnemyStateMachine enemy)
     {
+
     }
 }
