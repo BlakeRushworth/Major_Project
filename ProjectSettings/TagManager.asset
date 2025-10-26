@@ -13,6 +13,8 @@ TagManager:
   - Obelisk
   - icon
   - tile type
+  - Landmark icon
+  - portal
   layers:
   - Default
   - TransparentFX
@@ -64,6 +66,9 @@ TagManager:
     locked: 0
   - name: Decorations
     uniqueID: 3644031215
+    locked: 0
+  - name: aiming lines
+    uniqueID: 49719483
     locked: 0
   - name: Player
     uniqueID: 3519110575

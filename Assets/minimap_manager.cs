@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,9 @@ public class minimap_manager : MonoBehaviour
     //public Image minimapIcon;
     public Sprite unvisitedSprite;
     public Sprite[] testSprite;
+
+    public GameObject Landmark;
+    public Sprite[] landmarkSprites;
 
     private int xSize = 0;
     private int ySize = 0;
@@ -19,7 +23,8 @@ public class minimap_manager : MonoBehaviour
     public float mazeTileSize = 32f;
 
     //private float minDistance;
-    private GameObject CorrectGameObject;
+    private GameObject CorrectTileObject;
+    private GameObject CorrectObelisk;
 
     Rigidbody2D player;
     Vector2 mapSize;
@@ -37,7 +42,89 @@ public class minimap_manager : MonoBehaviour
             spawnOnce = true;
             spawnMiniMap();
         }
+        mapIconsReveal();
+        //LandmarkIconsUpdate();
+        portalUpdate();
+    }
 
+    public void spawnMiniMap()
+    {
+        xSize = (int)mapSize.x;
+        ySize = (int)mapSize.y;
+        //Debug.Log("mapsize: " + xSize + " " + ySize);
+
+
+        for (int x = 0; x < xSize; x++)
+        {
+            for (int y = 0; y < ySize; y++)
+            {
+                Vector2 spawnpos = new Vector2(x * spacing, y * spacing);
+                GameObject test = Instantiate(minimapIcon, transform);
+                test.transform.position = placement - spawnpos;
+                GameObject landmarks = Instantiate(Landmark, transform);
+                landmarks.transform.position = placement - spawnpos - new Vector2(spacing / 2, spacing / 2);
+            }
+        }
+    }
+    public void portalUpdate()
+    {
+        GameObject[] portals = GameObject.FindGameObjectsWithTag("portal");
+        GameObject[] landmarkIcons = GameObject.FindGameObjectsWithTag("Landmark icon");
+        if (portals.Length > 0)
+        {
+            for (int x = 0; x < xSize; x++)
+            {
+                for (int y = 0; y < ySize; y++)
+                {
+                    foreach (GameObject portal in portals)
+                    {
+                        if (portal.transform.position.x > BottomCornerMazeReference.x + x * mazeTileSize && portal.transform.position.y > BottomCornerMazeReference.y + y * mazeTileSize)
+                        {
+                            if (portal.transform.position.x < BottomCornerMazeReference.x + (x + 1) * mazeTileSize && portal.transform.position.y < BottomCornerMazeReference.y + (y + 1) * mazeTileSize)
+                            {
+                                //obelisk on tile
+                                int ConvertCoordtoNum = (xSize - (x + 1)) * ySize + (ySize - (y + 1));
+                                CorrectObelisk = portal;
+                                landmarkIcons[ConvertCoordtoNum].GetComponent<Image>().sprite = landmarkSprites[2];
+                                landmarkIcons[ConvertCoordtoNum].GetComponent<Image>().color = Color.white;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+    public void LandmarkIconsUpdate()
+    {
+        GameObject[] landmarkIcons = GameObject.FindGameObjectsWithTag("Landmark icon");
+        GameObject[] obelisks = GameObject.FindGameObjectsWithTag("Obelisk");
+        for (int x = 0; x < xSize; x++)
+        {
+            for (int y = 0; y < ySize; y++)
+            {
+                foreach (GameObject obelisk in obelisks)
+                {
+                    if (obelisk.transform.position.x > BottomCornerMazeReference.x + x * mazeTileSize && obelisk.transform.position.y > BottomCornerMazeReference.y + y * mazeTileSize)
+                    {
+                        if (obelisk.transform.position.x < BottomCornerMazeReference.x + (x + 1) * mazeTileSize && obelisk.transform.position.y < BottomCornerMazeReference.y + (y + 1) * mazeTileSize)
+                        {
+                            //obelisk on tile
+                            int ConvertCoordtoNum = (xSize - (x + 1)) * ySize + (ySize - (y + 1));
+                            CorrectObelisk = obelisk;
+                            landmarkIcons[ConvertCoordtoNum].GetComponent<Image>().sprite = landmarkSprites[2];
+                            landmarkIcons[ConvertCoordtoNum].GetComponent<Image>().color = Color.white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    */
+    public void mapIconsReveal()
+    {
         GameObject[] mapIcons = GameObject.FindGameObjectsWithTag("icon");
         for (int x = 0; x < xSize; x++)
         {
@@ -61,39 +148,21 @@ public class minimap_manager : MonoBehaviour
                                 //if (distancetoplayer < minDistance)
                                 //{
                                 //    minDistance = distancetoplayer;
-                                //    CorrectGameObject = tile;
+                                //    CorrectTileObject = tile;
                                 //}
                                 if (tile.transform.position.x > BottomCornerMazeReference.x + x * mazeTileSize && tile.transform.position.y > BottomCornerMazeReference.y + y * mazeTileSize)
                                 {
                                     if (tile.transform.position.x < BottomCornerMazeReference.x + (x + 1) * mazeTileSize && tile.transform.position.y < BottomCornerMazeReference.y + (y + 1) * mazeTileSize)
                                     {
-                                        CorrectGameObject = tile;
+                                        CorrectTileObject = tile;
                                     }
                                 }
                             }
-                            Debug.Log("min object is: " + CorrectGameObject.name);
-                            mapIcons[ConvertCoordtoNum].GetComponent<Image>().sprite = testSprite[int.Parse(CorrectGameObject.name)];
+                            Debug.Log("min object is: " + CorrectTileObject.name);
+                            mapIcons[ConvertCoordtoNum].GetComponent<Image>().sprite = testSprite[int.Parse(CorrectTileObject.name)];
                         }
                     }
                 }
-            }
-        }
-    }
-
-    public void spawnMiniMap()
-    {
-        xSize = (int)mapSize.x;
-        ySize = (int)mapSize.y;
-        Debug.Log("mapsize: " + xSize + " " + ySize);
-
-
-        for (int x = 0; x < xSize; x++)
-        {
-            for (int y = 0; y < ySize; y++)
-            {
-                Vector2 spawnpos = new Vector2(x * spacing, y * spacing);
-                GameObject test = Instantiate(minimapIcon, transform);
-                test.transform.position = placement - spawnpos;
             }
         }
     }

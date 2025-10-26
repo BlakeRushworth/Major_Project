@@ -9,6 +9,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float CurrentHealth;
     public float speed = 10f;
     public float rollSpeed = 20f;
+    public float jumpSpeed = 40f;
     public float hitCooldownDuration = 2f;
 
 
@@ -29,7 +30,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public enum states
     {
-        Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll
+        Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll, Jump
     }
 
     void Start()
@@ -46,6 +47,7 @@ public class PlayerStateMachine : MonoBehaviour
             { states.Walk, new PlayerWalkState() },
             { states.RangeAttack, new PlayerRangeAttackState() },
             { states.MeleeAttack, new PlayerMeleeAttackState() },
+            { states.Jump, new PlayerJumpState() },
             { states.Hit, new PlayerHitState() },
             { states.Death, new PlayerDeathState() },
             { states.Roll, new PlayerRollState() }
@@ -86,12 +88,13 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void changeAnim(states stateName) 
     {
-         anim.SetBool("RangeAttack", stateName == states.RangeAttack);
-         anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
-         anim.SetBool("Walk", stateName == states.Walk);
-         anim.SetBool("Roll", stateName == states.Roll);
-         anim.SetBool("Death", stateName == states.Death);
-         anim.SetBool("Hit", stateName == states.Hit);
+        anim.SetBool("RangeAttack", stateName == states.RangeAttack);
+        anim.SetBool("MeleeAttack", stateName == states.MeleeAttack);
+        anim.SetBool("Walk", stateName == states.Walk);
+        anim.SetBool("Roll", stateName == states.Roll);
+        anim.SetBool("Death", stateName == states.Death);
+        anim.SetBool("Hit", stateName == states.Hit);
+        anim.SetBool("Jump", stateName == states.Jump);
     }
 
     IEnumerator BeenHit()

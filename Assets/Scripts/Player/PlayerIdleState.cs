@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerIdleState : PlayerBaseState
 {
     private Vector2 movement;
+    private GameObject cross;
+    private LineRenderer LR;
     public override void Enter(PlayerStateMachine player)
     {
+        cross = player.transform.GetChild(1).gameObject;
+        LR = cross.GetComponent<LineRenderer>();
         player.changeAnim(PlayerStateMachine.states.Idle);
         Debug.Log("Entered Idle");
     }
@@ -24,13 +29,45 @@ public class PlayerIdleState : PlayerBaseState
     {
         //Debug.Log("UPDATING IDLE");
         
-        if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
+        if (Input.GetKey(KeyCode.Space) == true)
+        {
+            player.ChangeState(PlayerStateMachine.states.Jump);
+        }
+        /*
+            LR.SetPosition(0, player.transform.position);
+            LR.SetPosition(1, cross.transform.position);
+            Debug.DrawLine(player.transform.position, cross.transform.position);
+            cross.GetComponent<SpriteRenderer>().enabled = true;
+            LR.enabled = true;
+            Debug.Log("space pressed in idle");
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+            mouseWorldPosition.z = cross.transform.position.z;
+            cross.transform.position = mouseWorldPosition;
+
+            if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
+            {
+                //cross.GetComponent<SpriteRenderer>().enabled = false;
+                //LR.enabled = false;
+                Debug.Log("left click");
+                player.ChangeState(PlayerStateMachine.states.Jump);
+                //return;
+            }
+        }
+        else
+        {
+            cross.GetComponent<SpriteRenderer>().enabled = false;
+            LR.enabled = false;
+        }
+        */
+        
+        else if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
         {
             Debug.Log("left click");
             player.ChangeState(PlayerStateMachine.states.RangeAttack);
             //return;
         }
-
+        
         else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
         {
             Debug.Log("right click");
