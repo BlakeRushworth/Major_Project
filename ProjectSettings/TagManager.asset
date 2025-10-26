@@ -11,6 +11,8 @@ TagManager:
   - portal spawnpoint
   - obelisk spawnpoint
   - Obelisk
+  - icon
+  - tile type
   layers:
   - Default
   - TransparentFX

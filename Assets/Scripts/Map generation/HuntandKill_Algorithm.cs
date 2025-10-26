@@ -9,7 +9,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
 {
     public GameObject Hwall;
     public GameObject Vwall;
-    private Vector2Int mapSize;
+    [HideInInspector] public Vector2Int mapSize;
     private const int cubeSize = 32;
 
     private Vector2Int starting_pos;
