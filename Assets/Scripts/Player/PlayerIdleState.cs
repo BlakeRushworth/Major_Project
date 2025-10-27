@@ -29,11 +29,11 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        if (Input.GetKey(KeyCode.Space) == true)
+        if (Input.GetKey(KeyCode.Space) == true && stamina_bar.currentStanima >= stamina_bar.Jump_stanima_cost)
         {
             LR.SetPosition(0, player.transform.position);
             LR.SetPosition(1, cross.transform.position);
-            Debug.DrawLine(player.transform.position, cross.transform.position);
+            //Debug.DrawLine(player.transform.position, cross.transform.position);
             cross.GetComponent<SpriteRenderer>().enabled = true;
             LR.enabled = true;
             Debug.Log("space pressed in idle");
@@ -48,6 +48,7 @@ public class PlayerIdleState : PlayerBaseState
                 TileBase tileAtPosition = player.targetTilemap.GetTile(cellPosition);
                 if (tileAtPosition == null)
                 {
+                    stamina_bar.currentStanima -= stamina_bar.Jump_stanima_cost;
                     cross.GetComponent<SpriteRenderer>().enabled = false;
                     LR.enabled = false;
                     Debug.Log("did NOT hit tilemap on idle click");
@@ -80,7 +81,7 @@ public class PlayerIdleState : PlayerBaseState
             //return;
         }
 
-        else if (Input.GetKey(KeyCode.Q) == true && stanima_bar.currentStanima > stanima_bar.stanima_cost)
+        else if (Input.GetKey(KeyCode.Q) == true && stamina_bar.currentStanima >= stamina_bar.Roll_stanima_cost)
         {
             Debug.Log("idle to roll");
             player.ChangeState(PlayerStateMachine.states.Roll);

@@ -4,6 +4,8 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class PlayerJumpState : PlayerBaseState
 {
     private GameObject cross;
+    private LineRenderer LR;
+
     private Vector2 movement;
     private const float ANIMATION_TIME = 1.1f;
     private float distance;
@@ -11,6 +13,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void Enter(PlayerStateMachine player)
     {
         cross = player.transform.GetChild(1).gameObject;
+        LR = cross.GetComponent<LineRenderer>();
         initialCrossPos = cross.transform.position;
         player.GetComponent<CapsuleCollider2D>().enabled = false;
         player.changeAnim(PlayerStateMachine.states.Jump);
@@ -23,6 +26,8 @@ public class PlayerJumpState : PlayerBaseState
         //player.transform.Translate(movement * distance / ANIMATION_TIME);
 
         //player.RB.MovePosition.Lerp(player.RB.position + movement * distance / ANIMATION_TIME * Time.deltaTime);
+        cross.GetComponent<SpriteRenderer>().enabled = false;
+        LR.enabled = false;
     }
 
     public override void Exit(PlayerStateMachine player)
