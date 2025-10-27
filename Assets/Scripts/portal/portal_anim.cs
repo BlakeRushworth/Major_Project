@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class portal_anim : MonoBehaviour
 {
@@ -12,5 +13,15 @@ public class portal_anim : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("touch skill tree");
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("go to skill tree");
+            SceneManager.LoadScene(1);
+        }
     }
 }

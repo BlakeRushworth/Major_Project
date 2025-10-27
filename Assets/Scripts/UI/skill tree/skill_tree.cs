@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class skill_tree : MonoBehaviour
 {
@@ -47,5 +48,10 @@ public class skill_tree : MonoBehaviour
 
         skill_tree_icons[9].GetComponent<LineRenderer>().SetPosition(0, skill_tree_icons[9].transform.position);
         skill_tree_icons[9].GetComponent<LineRenderer>().SetPosition(1, skill_tree_icons[12].transform.position);
+    }
+
+    public void NextLevelButton()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Spawn_Manager : MonoBehaviour
     private bool spawnPortalOnce = false;
     void Start()
     {
+        spawnPortalOnce = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("player spawnpoint");
@@ -26,6 +28,7 @@ public class Spawn_Manager : MonoBehaviour
         if (obeliskObjects.Length > 0)
         {
             Debug.Log("obelisk: " + obeliskObjects.Length);
+            int test_count = 0;
             foreach (GameObject obelisk in obeliskObjects)
             {
                 int rand = Random.Range(0, obelisk_chance);
@@ -35,8 +38,10 @@ public class Spawn_Manager : MonoBehaviour
                     // Do something with each portal object
                     Debug.Log("Found obrlisk spawn: " + obelisk.name);
                     Instantiate(Obelisk, obelisk.transform.position, Quaternion.identity);
+                    test_count += 1;
                 }
             }
+            Debug.Log("spawned obelisk count: " + test_count);
         }
     }
 

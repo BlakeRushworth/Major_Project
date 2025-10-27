@@ -31,7 +31,7 @@ public class PlayerRollState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        player.RB.MovePosition(player.RB.position + movement * player.rollSpeed * Time.deltaTime);
+        player.RB.MovePosition(player.RB.position + movement.normalized * player.rollSpeed * Time.deltaTime);
     }
 
     public override void finishedAnimation(PlayerStateMachine player)
