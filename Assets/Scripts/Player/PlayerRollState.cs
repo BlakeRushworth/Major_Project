@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerRollState : PlayerBaseState
 {
-
+    
     private Vector2 movement;
     public override void Enter(PlayerStateMachine player)
     {

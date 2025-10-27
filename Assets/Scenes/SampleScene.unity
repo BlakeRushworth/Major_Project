@@ -3563,7 +3563,6 @@ MonoBehaviour:
   CurrentHealth: 0
   speed: 6
   rollSpeed: 12
-  jumpSpeed: 40
   hitCooldownDuration: 1
   hitCooldown: 0
   RB: {fileID: 0}

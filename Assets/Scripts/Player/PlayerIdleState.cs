@@ -27,13 +27,8 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        //Debug.Log("UPDATING IDLE");
-        
         if (Input.GetKey(KeyCode.Space) == true)
         {
-            player.ChangeState(PlayerStateMachine.states.Jump);
-        }
-        /*
             LR.SetPosition(0, player.transform.position);
             LR.SetPosition(1, cross.transform.position);
             Debug.DrawLine(player.transform.position, cross.transform.position);
@@ -47,11 +42,11 @@ public class PlayerIdleState : PlayerBaseState
 
             if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
             {
-                //cross.GetComponent<SpriteRenderer>().enabled = false;
-                //LR.enabled = false;
+                cross.GetComponent<SpriteRenderer>().enabled = false;
+                LR.enabled = false;
                 Debug.Log("left click");
                 player.ChangeState(PlayerStateMachine.states.Jump);
-                //return;
+                return;
             }
         }
         else
@@ -59,9 +54,7 @@ public class PlayerIdleState : PlayerBaseState
             cross.GetComponent<SpriteRenderer>().enabled = false;
             LR.enabled = false;
         }
-        */
-        
-        else if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
+        if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
         {
             Debug.Log("left click");
             player.ChangeState(PlayerStateMachine.states.RangeAttack);

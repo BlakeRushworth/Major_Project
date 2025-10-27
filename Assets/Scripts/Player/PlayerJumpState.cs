@@ -3,9 +3,17 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerJumpState : PlayerBaseState
 {
+    private GameObject cross;
+    private Vector2 movement;
+    private const float ANIMATION_TIME = 1.1f;
+    private float distance;
+    private Vector2 initialCrossPos;
     public override void Enter(PlayerStateMachine player)
     {
-        player.ChangeState(PlayerStateMachine.states.Jump);
+        cross = player.transform.GetChild(1).gameObject;
+        initialCrossPos = cross.transform.position;
+        player.GetComponent<CapsuleCollider2D>().enabled = false;
+        player.changeAnim(PlayerStateMachine.states.Jump);
         Debug.Log("Entered jump");
     }
 
@@ -16,12 +24,17 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void finishedAnimation(PlayerStateMachine player)
     {
-        //player.ChangeState(PlayerStateMachine.states.Idle);
+        player.GetComponent<CapsuleCollider2D>().enabled = true;
+        player.ChangeState(PlayerStateMachine.states.Idle);
     }
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
-        //player.RB.MovePosition(player.RB.position + movement * player.rollSpeed * Time.deltaTime);
-        //player.transform.Translate(Vector3.forward * 2f);
+        movement = (cross.transform.position - player.transform.position).normalized;
+        distance = Vector2.Distance(player.transform.position, initialCrossPos);
+        Debug.Log("distance: " + distance + " time: " + ANIMATION_TIME + " =  speed: " + distance / ANIMATION_TIME);
+        //player.transform.Translate(movement * distance / ANIMATION_TIME);
+
+        player.RB.MovePosition(player.RB.position + movement * distance / ANIMATION_TIME * Time.deltaTime);
     }
 }

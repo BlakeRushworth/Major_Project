@@ -9,7 +9,6 @@ public class PlayerStateMachine : MonoBehaviour
     public float CurrentHealth;
     public float speed = 10f;
     public float rollSpeed = 20f;
-    public float jumpSpeed = 40f;
     public float hitCooldownDuration = 2f;
 
 
