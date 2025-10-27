@@ -3564,6 +3564,7 @@ MonoBehaviour:
   speed: 6
   rollSpeed: 12
   hitCooldownDuration: 1
+  targetTilemap: {fileID: 1896078073}
   hitCooldown: 0
   RB: {fileID: 0}
   SR: {fileID: 0}

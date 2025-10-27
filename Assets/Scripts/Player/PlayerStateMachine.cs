@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float rollSpeed = 20f;
     public float hitCooldownDuration = 2f;
 
+    public Tilemap targetTilemap;
 
     public bool hitCooldown = false;
 

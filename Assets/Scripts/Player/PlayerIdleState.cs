@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerIdleState : PlayerBaseState
@@ -9,6 +10,7 @@ public class PlayerIdleState : PlayerBaseState
     private LineRenderer LR;
     public override void Enter(PlayerStateMachine player)
     {
+
         cross = player.transform.GetChild(1).gameObject;
         LR = cross.GetComponent<LineRenderer>();
         player.changeAnim(PlayerStateMachine.states.Idle);
@@ -42,12 +44,22 @@ public class PlayerIdleState : PlayerBaseState
 
             if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
             {
-                cross.GetComponent<SpriteRenderer>().enabled = false;
-                LR.enabled = false;
-                Debug.Log("left click");
-                player.ChangeState(PlayerStateMachine.states.Jump);
-                return;
+                Vector3Int cellPosition = player.targetTilemap.WorldToCell(mouseWorldPosition);
+                TileBase tileAtPosition = player.targetTilemap.GetTile(cellPosition);
+                if (tileAtPosition == null)
+                {
+                    cross.GetComponent<SpriteRenderer>().enabled = false;
+                    LR.enabled = false;
+                    Debug.Log("did NOT hit tilemap on idle click");
+                    player.ChangeState(PlayerStateMachine.states.Jump);
+                    
+                }
+                else
+                {
+                    Debug.Log("hit tilemap on idle click");
+                }
             }
+            return;
         }
         else
         {
