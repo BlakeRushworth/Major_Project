@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class health_bar_test : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static float maxHealth = 100f;
-    public static float currentHealth = 100f;
-    public static float healthRegen = 1;
+    public static float maxHealth = skill_tree.maxHealth;
+    public static float currentHealth;
+    public static float healthRegen = skill_tree.HealthRegeneration;
 
     public Image healthbar;
     void Start()
@@ -21,7 +21,7 @@ public class health_bar_test : MonoBehaviour
         {
             currentHealth += healthRegen * Time.deltaTime;
         }
-
+        //Debug.Log("current health = " + currentHealth + " max health = " + maxHealth + " healthRegen = " + healthRegen);
         healthbar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0, 1);
     }
 }

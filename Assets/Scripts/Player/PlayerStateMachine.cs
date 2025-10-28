@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    public float MaxHealth = 100f;
+    public float MaxHealth = skill_tree.maxHealth;
     public float CurrentHealth;
-    public float speed = 10f;
-    public float rollSpeed = 20f;
+    public float speed = skill_tree.player_speed;
+    public float rollSpeed = skill_tree.player_roll_speed;
     public float hitCooldownDuration = 2f;
 
     public Tilemap targetTilemap;
 
     public bool hitCooldown = false;
+    public string enemytypehitby;
+    public bool attemptEnemyFreeze = false;
+    private bool donehit = true;
 
     [HideInInspector]
     public Rigidbody2D RB;
@@ -29,6 +33,8 @@ public class PlayerStateMachine : MonoBehaviour
     public GameObject arrow;
     public GameObject enemy;
 
+    public GameObject EnemyIce;
+
     public enum states
     {
         Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll, Jump
@@ -36,7 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
-
+        Debug.Log("speed = " + speed + " roll speed = " + rollSpeed + " jump range = ");
         RB = GetComponent<Rigidbody2D>();
         SR = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -60,8 +66,8 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        health_bar_test.currentHealth = CurrentHealth;
-        health_bar_test.maxHealth = MaxHealth;
+        CurrentHealth = health_bar_test.currentHealth;
+
         currentState?.PhysicsUpdate(this);
         //Debug.Log(CurrentHealth);
 
@@ -71,10 +77,27 @@ public class PlayerStateMachine : MonoBehaviour
             anim.SetBool("DeathLock", true);
             ChangeState(states.Death);
         }
-        
-        if (hitCooldown)
+
+        Debug.Log("hitcooldown = " + hitCooldown + " donehit = " + donehit);
+        if (hitCooldown && donehit)
         {
-            StartCoroutine(BeenHit());
+            if (enemytypehitby == "poison")
+            {
+                StartCoroutine(BeenHitBurn());
+            }
+            if (enemytypehitby == "burn")
+            {
+                StartCoroutine(BeenHitBurn());
+            }
+            else if (enemytypehitby == "freeze")
+            {
+                StartCoroutine(BeenHitFreeze());
+            }
+            else
+            {
+                StartCoroutine(BeenHit());
+            }
+                
         }
     }
 
@@ -98,15 +121,67 @@ public class PlayerStateMachine : MonoBehaviour
         anim.SetBool("Jump", stateName == states.Jump);
     }
 
-    IEnumerator BeenHit()
+    public IEnumerator BeenHit()
     {
-        Debug.Log("can hit! woo");
-        CurrentHealth -= 10f;
+        donehit = false;
+        Debug.Log("burn hit!");
+        health_bar_test.currentHealth -= 10f;
         SR.color = Color.red;
         hitCooldown = false;
         yield return new WaitForSeconds(hitCooldownDuration); // Wait for 2 seconds
-        hitCooldown = false;
+        donehit = true;
         SR.color = Color.white;
         Debug.Log("hit Countdown finished!");
+    }
+
+    public IEnumerator BeenHitFreeze()
+    {
+        donehit = false;
+        Debug.Log("freeze hit!");
+        if (!skill_tree.FreezingImmunity)
+        {
+            attemptEnemyFreeze = true;
+        }
+        health_bar_test.currentHealth -= 10f;
+        SR.color = Color.red;
+        hitCooldown = false;
+        yield return new WaitForSeconds(hitCooldownDuration); // Wait for 2 seconds
+        attemptEnemyFreeze = false;
+        donehit = true;
+        SR.color = Color.white;
+        Debug.Log("hit Countdown finished!");
+    }
+
+    public IEnumerator BeenHitBurn()
+    {
+        donehit = false;
+        Debug.Log("normal hit!");
+        health_bar_test.currentHealth -= 10f;
+        SR.color = Color.red;
+        hitCooldown = false;
+        yield return new WaitForSeconds(hitCooldownDuration); // Wait for 2 seconds
+        if (!skill_tree.FreezingImmunity)
+        {
+            health_bar_test.currentHealth -= 10f;
+        }
+        donehit = true;
+        SR.color = Color.white;
+        Debug.Log("hit Countdown finished!");
+    }
+
+    public IEnumerator BeenHitPosion()
+    {
+        if (!skill_tree.PoisonedImmunity)
+        {
+            donehit = false;
+            Debug.Log("burn hit!");
+            health_bar_test.currentHealth -= 5f;
+            SR.color = Color.red;
+            hitCooldown = false;
+            yield return new WaitForSeconds(hitCooldownDuration); // Wait for 2 seconds
+            donehit = true;
+            SR.color = Color.white;
+            Debug.Log("hit Countdown finished!");
+        }
     }
 }

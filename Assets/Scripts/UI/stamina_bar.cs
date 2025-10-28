@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class stamina_bar : MonoBehaviour
 {
-    public static float maxStanima = 100f;
-    public static float currentStanima = 100f;
-    public static float staminaRegen = 10;
+    public static float maxStanima = skill_tree.maxStamina;
+    public static float currentStanima;
+    public static float staminaRegen = skill_tree.StaminaRegeneration;
     public static float Roll_stanima_cost = 33f;
     public static float Jump_stanima_cost = 100f;
     public Image Stanimabar;

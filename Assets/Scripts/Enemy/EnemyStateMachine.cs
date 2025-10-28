@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime;
 using UnityEngine;
 
 public class EnemyStateMachine : MonoBehaviour
@@ -18,6 +20,20 @@ public class EnemyStateMachine : MonoBehaviour
 
     public Dictionary<states, EnemyBaseState> statesDict;
     public EnemyBaseState currentState;
+
+    public bool enemyTypesEnabled = true;
+    public bool largeEnemyEnabled = true;
+    public Color blue;
+    public Color green;
+    public Color red;
+    public Color white;
+    private int NUMBROFTYPES = 5;
+    private int BIGENEMYCHANCE = 4;
+
+    public float enemy_range = 3f;
+
+    public GameObject poisonPuddle;
+    public bool spawnPoison = false;
 
     public enum states
     {
@@ -41,6 +57,50 @@ public class EnemyStateMachine : MonoBehaviour
             { states.Death, new EnemyDeathState() }
         };
 
+        if (largeEnemyEnabled)
+        {
+            int randomsize = Random.Range(0, BIGENEMYCHANCE);
+            if (randomsize == 0)
+            {
+                transform.localScale *= 2f;
+                enemy_range += 2f;
+                attack_dist += 1f;
+            }
+        }
+        if (enemyTypesEnabled)
+        {
+            int randomType = Random.Range(0, NUMBROFTYPES);
+            if (randomType == 0)
+            {
+                //normal
+            }
+            else if (randomType == 1)
+            {
+                //poison
+                SR.color = green;
+            }
+            else if (randomType == 2)
+            {
+                //burn
+                SR.color = red;
+            }
+            else if (randomType == 3)
+            {
+                //freeze
+                SR.color = blue;
+            }
+            else if (randomType == 4)
+            {
+                //speed
+                SR.color = white;
+                speed += 2f;
+            }
+            else
+            {
+                Debug.Log("enemyTypes unknown num");
+            }
+        }
+
         ChangeState(states.Spawn);
     }
 
@@ -52,6 +112,11 @@ public class EnemyStateMachine : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             ChangeState(EnemyStateMachine.states.Death);
+        }
+        if (spawnPoison)
+        {
+            spawnPoison = false;
+            Instantiate(poisonPuddle, transform.position, Quaternion.identity);
         }
     }
 

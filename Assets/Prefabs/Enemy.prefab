@@ -79,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -775856721
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -654737500350741434, guid: 9c30f27ee4cd0fc44868c1fd7d2cabaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -198,6 +198,15 @@ MonoBehaviour:
   RB: {fileID: 0}
   SR: {fileID: 0}
   anim: {fileID: 0}
+  enemyTypesEnabled: 1
+  largeEnemyEnabled: 1
+  blue: {r: 0.21568628, g: 0.59607846, b: 1, a: 1}
+  green: {r: 0.41568628, g: 1, b: 0.2627451, a: 1}
+  red: {r: 1, g: 0.5940374, b: 0.20392156, a: 1}
+  white: {r: 1, g: 1, b: 0, a: 1}
+  enemy_range: 3
+  poisonPuddle: {fileID: 5167859329925546113, guid: 6035913eb1de1164f8af80845c3c042b, type: 3}
+  spawnPoison: 0
 --- !u!114 &4671811532013536714
 MonoBehaviour:
   m_ObjectHideFlags: 0

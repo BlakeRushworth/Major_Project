@@ -10,7 +10,6 @@ public class PlayerIdleState : PlayerBaseState
     private LineRenderer LR;
     public override void Enter(PlayerStateMachine player)
     {
-
         cross = player.transform.GetChild(1).gameObject;
         LR = cross.GetComponent<LineRenderer>();
         player.changeAnim(PlayerStateMachine.states.Idle);
@@ -29,6 +28,12 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
+        if (player.attemptEnemyFreeze)
+        {
+            Debug.Log("frozen by enemy");
+            player.ChangeState(PlayerStateMachine.states.Hit);
+        }
+
         if (Input.GetKey(KeyCode.Space) == true && stamina_bar.currentStanima >= stamina_bar.Jump_stanima_cost)
         {
             LR.SetPosition(0, player.transform.position);
@@ -67,21 +72,21 @@ public class PlayerIdleState : PlayerBaseState
             cross.GetComponent<SpriteRenderer>().enabled = false;
             LR.enabled = false;
         }
-        if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
-        {
-            Debug.Log("left click");
-            player.ChangeState(PlayerStateMachine.states.RangeAttack);
-            //return;
-        }
+        //if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
+        //{
+        //    Debug.Log("left click");
+        //    player.ChangeState(PlayerStateMachine.states.RangeAttack);
+        //    //return;
+        //}
         
-        else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
-        {
-            Debug.Log("right click");
-            player.ChangeState(PlayerStateMachine.states.MeleeAttack);
-            //return;
-        }
+        //else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
+        //{
+        //    Debug.Log("right click");
+        //    player.ChangeState(PlayerStateMachine.states.MeleeAttack);
+        //    //return;
+        //}
 
-        else if (Input.GetKey(KeyCode.Q) == true && stamina_bar.currentStanima >= stamina_bar.Roll_stanima_cost)
+        if (Input.GetKey(KeyCode.Q) == true && stamina_bar.currentStanima >= stamina_bar.Roll_stanima_cost)
         {
             Debug.Log("idle to roll");
             player.ChangeState(PlayerStateMachine.states.Roll);

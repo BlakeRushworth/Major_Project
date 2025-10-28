@@ -7,7 +7,7 @@ public class spawnEnemy : MonoBehaviour
     //public Vector2 center = Vector2.zero; // Default to (0,0)
 
     GameObject player;
-    public GameObject test;
+    public GameObject enemy;
     public Tilemap targetTilemap;
 
     void Start()
@@ -49,7 +49,7 @@ public class spawnEnemy : MonoBehaviour
         if (tileAtPosition == null)
         {
             //Debug.Log("can spawn");
-            Instantiate(test, randomPointInsideCircle, Quaternion.identity);
+            Instantiate(enemy, randomPointInsideCircle, Quaternion.identity);
         }
         else
         {

@@ -22,6 +22,11 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void PhysicsUpdate(PlayerStateMachine player)
     {
+        if (player.attemptEnemyFreeze)
+        {
+            Debug.Log("frozen by enemy");
+            player.ChangeState(PlayerStateMachine.states.Hit);
+        }
 
         if (Input.GetKey(KeyCode.Space) == true && stamina_bar.currentStanima >= stamina_bar.Jump_stanima_cost)
         {
@@ -63,18 +68,18 @@ public class PlayerWalkState : PlayerBaseState
             //    LR.enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
-        {
-            player.ChangeState(PlayerStateMachine.states.RangeAttack);
-            //return;
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0) == true) //left mouse
+        //{
+        //    player.ChangeState(PlayerStateMachine.states.RangeAttack);
+        //    //return;
+        //}
 
-        else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
-        {
-            Debug.Log("right click");
-            player.ChangeState(PlayerStateMachine.states.MeleeAttack);
-            //return;
-        }
+        //else if (Input.GetKey(KeyCode.Mouse1) == true) //right mouse
+        //{
+        //    Debug.Log("right click");
+        //    player.ChangeState(PlayerStateMachine.states.MeleeAttack);
+        //    //return;
+        //}
 
         else if (Input.GetKey(KeyCode.Q) == true && stamina_bar.currentStanima > stamina_bar.Roll_stanima_cost)
         {

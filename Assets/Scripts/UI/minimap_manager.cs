@@ -136,10 +136,10 @@ public class minimap_manager : MonoBehaviour
                     {
                         //int ConvertCoordtoNum = x * ySize + y;
                         int ConvertCoordtoNum = (xSize - (x + 1)) * ySize + (ySize - (y + 1));
-                        Debug.Log("at tile: (" + x + ", " + y + ") chose: " + ConvertCoordtoNum);
+                        //Debug.Log("at tile: (" + x + ", " + y + ") chose: " + ConvertCoordtoNum);
                         if (mapIcons[ConvertCoordtoNum].GetComponent<Image>().sprite == unvisitedSprite)
                         {
-                            Debug.Log("new tile found at tile: ( " + x + " , " + y + " ) from length: " + mapIcons.Length + " chose: " + ConvertCoordtoNum);
+                            //Debug.Log("new tile found at tile: ( " + x + " , " + y + " ) from length: " + mapIcons.Length + " chose: " + ConvertCoordtoNum);
                             GameObject[] tiletypes = GameObject.FindGameObjectsWithTag("tile type");
                             //minDistance = float.PositiveInfinity;
                             foreach (GameObject tile in tiletypes)
@@ -158,7 +158,7 @@ public class minimap_manager : MonoBehaviour
                                     }
                                 }
                             }
-                            Debug.Log("min object is: " + CorrectTileObject.name);
+                            //Debug.Log("min object is: " + CorrectTileObject.name);
                             mapIcons[ConvertCoordtoNum].GetComponent<Image>().sprite = testSprite[int.Parse(CorrectTileObject.name)];
                         }
                     }
