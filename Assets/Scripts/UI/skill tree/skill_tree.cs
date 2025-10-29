@@ -88,6 +88,8 @@ public class skill_tree : MonoBehaviour
 
         skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().SetPosition(0, skill_tree_icons[9].transform.position);
         skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().SetPosition(1, skill_tree_icons[12].transform.position);
+
+
     }
 
     public void NextLevelButton()
@@ -145,7 +147,7 @@ public class skill_tree : MonoBehaviour
         if (!skillTreeOnce[3])
         {
             skillTreeOnce[3] = true;
-            player_speed += 10f;
+            player_speed += 2f;
             Debug.Log(player_speed);
 
             skill_tree_icons[0].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;

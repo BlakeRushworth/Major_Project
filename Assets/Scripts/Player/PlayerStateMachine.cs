@@ -7,10 +7,10 @@ using UnityEngine.Tilemaps;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    public float MaxHealth = skill_tree.maxHealth;
+    public float MaxHealth;
     public float CurrentHealth;
-    public float speed = skill_tree.player_speed;
-    public float rollSpeed = skill_tree.player_roll_speed;
+    public float speed;
+    public float rollSpeed;
     public float hitCooldownDuration = 2f;
 
     public Tilemap targetTilemap;
@@ -35,6 +35,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     public GameObject EnemyIce;
 
+    public bool turnInvis  = false;
+
     public enum states
     {
         Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll, Jump
@@ -42,11 +44,18 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
+
+
+        MaxHealth = skill_tree.maxHealth;
+        speed = skill_tree.player_speed;
+        rollSpeed = skill_tree.player_roll_speed;
+        CurrentHealth = MaxHealth;
+
         Debug.Log("speed = " + speed + " roll speed = " + rollSpeed + " jump range = ");
         RB = GetComponent<Rigidbody2D>();
         SR = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        CurrentHealth = MaxHealth;
+        
 
         statesDict = new Dictionary<states, PlayerBaseState>
         {
@@ -97,7 +106,6 @@ public class PlayerStateMachine : MonoBehaviour
             {
                 StartCoroutine(BeenHit());
             }
-                
         }
     }
 
@@ -120,6 +128,7 @@ public class PlayerStateMachine : MonoBehaviour
         anim.SetBool("Hit", stateName == states.Hit);
         anim.SetBool("Jump", stateName == states.Jump);
     }
+
 
     public IEnumerator BeenHit()
     {

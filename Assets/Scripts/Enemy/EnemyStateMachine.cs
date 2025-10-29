@@ -35,6 +35,7 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject poisonPuddle;
     public bool spawnPoison = false;
 
+    Rigidbody2D player;
     public enum states
     {
         Idle, Walk, Attack, Hit, Death, Spawn
@@ -42,6 +43,11 @@ public class EnemyStateMachine : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
+        enemyTypesEnabled = DifficultyINcreases.enableEnemyTypes;
+        largeEnemyEnabled = DifficultyINcreases.enableBigEnemies;
+
         RB = GetComponent<Rigidbody2D>();
         SR = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -136,5 +142,16 @@ public class EnemyStateMachine : MonoBehaviour
         anim.SetBool("Walk", stateName == states.Walk);
         anim.SetBool("Death", stateName == states.Death);
         anim.SetBool("Hit", stateName == states.Hit);
+    }
+
+    public void groundpoundstun()
+    {
+        Debug.Log("ground pound stun");
+        float distance = Vector2.Distance(RB.transform.position, player.transform.position);
+        if (distance < 100f)
+        {
+            Debug.Log("change to spawn");
+            ChangeState(states.Spawn);
+        }
     }
 }

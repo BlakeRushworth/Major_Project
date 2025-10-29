@@ -3,15 +3,17 @@ using UnityEngine.UI;
 
 public class stamina_bar : MonoBehaviour
 {
-    public static float maxStanima = skill_tree.maxStamina;
+    public static float maxStanima;
     public static float currentStanima;
-    public static float staminaRegen = skill_tree.StaminaRegeneration;
+    public static float staminaRegen;
     public static float Roll_stanima_cost = 33f;
     public static float Jump_stanima_cost = 100f;
     public Image Stanimabar;
 
     void Start()
     {
+        staminaRegen = skill_tree.StaminaRegeneration;
+        maxStanima = skill_tree.maxStamina;
         currentStanima = maxStanima;
     }
 

@@ -10,6 +10,8 @@ public class Spawn_Manager : MonoBehaviour
 
     public int obelisk_chance = 4;
 
+    private int num_of_spawningobelisks;
+
     private bool spawnPortalOnce = false;
     void Start()
     {
@@ -27,21 +29,44 @@ public class Spawn_Manager : MonoBehaviour
         GameObject[] obeliskObjects = GameObject.FindGameObjectsWithTag("obelisk spawnpoint");
         if (obeliskObjects.Length > 0)
         {
-            Debug.Log("obelisk: " + obeliskObjects.Length);
-            int test_count = 0;
-            foreach (GameObject obelisk in obeliskObjects)
+            //Debug.Log("obelisk: " + obeliskObjects.Length);
+            //int test_count = 0;
+            //foreach (GameObject obelisk in obeliskObjects)
+            //{
+            //    int rand = Random.Range(0, obelisk_chance);
+            //    Debug.Log(rand);
+            //    if (rand == 0)
+            //    {
+            //        // Do something with each portal object
+            //        Debug.Log("Found obrlisk spawn: " + obelisk.name);
+            //        Instantiate(Obelisk, obelisk.transform.position, Quaternion.identity);
+            //        test_count += 1;
+            //    }
+            //}
+            //Debug.Log("spawned obelisk count: " + test_count);
+            if (DifficultyINcreases.enableEnemyTypes)
             {
-                int rand = Random.Range(0, obelisk_chance);
-                Debug.Log(rand);
-                if (rand == 0)
-                {
-                    // Do something with each portal object
-                    Debug.Log("Found obrlisk spawn: " + obelisk.name);
-                    Instantiate(Obelisk, obelisk.transform.position, Quaternion.identity);
-                    test_count += 1;
-                }
+                num_of_spawningobelisks = 3;
             }
-            Debug.Log("spawned obelisk count: " + test_count);
+            else if (DifficultyINcreases.enableBigEnemies)
+            {
+                num_of_spawningobelisks = 5;
+            }
+            else
+            {
+                num_of_spawningobelisks = 3;
+            }
+                bool[] once = new bool[obeliskObjects.Length];
+            for (int i = 0; i < num_of_spawningobelisks; i++)
+            {
+                int rand = Random.Range(0, obeliskObjects.Length);
+                while (once[rand])
+                {
+                    rand = Random.Range(0, obeliskObjects.Length);
+                }
+                once[rand] = true;
+                Instantiate(Obelisk, obeliskObjects[rand].transform.position, Quaternion.identity);
+            }
         }
     }
 

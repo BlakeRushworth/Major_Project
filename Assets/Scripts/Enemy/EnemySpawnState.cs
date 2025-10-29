@@ -10,7 +10,7 @@ public class EnemySpawnState : EnemyBaseState
     public override void Enter(EnemyStateMachine enemy)
     {
         Debug.Log("Entered spawn state");
-        enemy.changeAnim(EnemyStateMachine.states.Attack);
+        //enemy.changeAnim(EnemyStateMachine.states.Spawn);
     }
 
     public override void Exit(EnemyStateMachine enemy)

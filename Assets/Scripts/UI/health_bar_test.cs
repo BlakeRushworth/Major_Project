@@ -4,13 +4,15 @@ using UnityEngine.UI;
 public class health_bar_test : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static float maxHealth = skill_tree.maxHealth;
+    public static float maxHealth;
     public static float currentHealth;
-    public static float healthRegen = skill_tree.HealthRegeneration;
+    public static float healthRegen;
 
     public Image healthbar;
     void Start()
     {
+        maxHealth = skill_tree.maxHealth;
+        healthRegen = skill_tree.HealthRegeneration;
         currentHealth = maxHealth;
     }
 
