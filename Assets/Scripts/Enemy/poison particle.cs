@@ -29,6 +29,6 @@ public class poisonparticle : MonoBehaviour
     public IEnumerator DelayDeath()
     {
         yield return new WaitForSeconds(3f); // Wait for 3 seconds
-        Object.Destroy(this);
+        Destroy(gameObject);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DifficultyINcreases : MonoBehaviour
 {
-    public static int wave = 0;
+    public static int wave = 10;
     public static bool enableBigEnemies = false;
     public static bool enableEnemyTypes = false;
 

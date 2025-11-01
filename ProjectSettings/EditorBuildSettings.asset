@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Skill_Tree.unity
     guid: 0fa9674047cd1ad4584bbc4c5ca831f2
+  - enabled: 1
+    path: Assets/Scenes/mainMenu.unity
+    guid: c978aa013f7e67745959e216bdfd7656
+  - enabled: 1
+    path: Assets/Scenes/settingsMenu.unity
+    guid: 1c86dd5030759ca4292a33cf28dd9de7
+  - enabled: 1
+    path: Assets/Scenes/controlsMenu.unity
+    guid: 4b349a4038c215a4a858144d07047eaf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

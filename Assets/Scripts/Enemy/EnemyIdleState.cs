@@ -8,7 +8,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter(EnemyStateMachine enemy)
     {
         enemy.changeAnim(EnemyStateMachine.states.Idle);
-        //Debug.Log("hi from enemy idle");
+        Debug.Log("hi from enemy idle");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
 

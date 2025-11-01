@@ -143,15 +143,4 @@ public class EnemyStateMachine : MonoBehaviour
         anim.SetBool("Death", stateName == states.Death);
         anim.SetBool("Hit", stateName == states.Hit);
     }
-
-    public void groundpoundstun()
-    {
-        Debug.Log("ground pound stun");
-        float distance = Vector2.Distance(RB.transform.position, player.transform.position);
-        if (distance < 100f)
-        {
-            Debug.Log("change to spawn");
-            ChangeState(states.Spawn);
-        }
-    }
 }

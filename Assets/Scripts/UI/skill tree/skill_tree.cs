@@ -25,7 +25,7 @@ public class skill_tree : MonoBehaviour
 
     public Gradient green;
 
-    private bool[] skillTreeOnce = {
+    private static bool[] skillTreeOnce = {
         false,
         false,
         false,
@@ -89,7 +89,55 @@ public class skill_tree : MonoBehaviour
         skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().SetPosition(0, skill_tree_icons[9].transform.position);
         skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().SetPosition(1, skill_tree_icons[12].transform.position);
 
-
+        if (skillTreeOnce[0])
+        {
+            skill_tree_icons[0].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[1])
+        {
+            skill_tree_icons[0].transform.GetChild(2).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[2])
+        {
+            skill_tree_icons[1].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[3])
+        {
+            skill_tree_icons[0].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[4])
+        {
+            skill_tree_icons[2].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[5])
+        {
+            skill_tree_icons[3].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[6])
+        {
+            skill_tree_icons[5].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[7])
+        {
+            skill_tree_icons[4].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[8])
+        {
+            skill_tree_icons[4].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[9])
+        {
+            skill_tree_icons[3].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[10])
+        {
+            skill_tree_icons[5].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
+        if (skillTreeOnce[11])
+        {
+            skill_tree_icons[8].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+            skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
+        }
     }
 
     public void NextLevelButton()

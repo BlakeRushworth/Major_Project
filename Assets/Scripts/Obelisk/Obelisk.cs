@@ -14,7 +14,7 @@ public class Obelisk : MonoBehaviour
     private float current_time;
     public bool complete = false;
 
-    private bool particleChange= false;
+    private bool particleChange = false;
     private bool changeParticleState;
 
     [HideInInspector]
