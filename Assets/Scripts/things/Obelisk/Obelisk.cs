@@ -6,7 +6,7 @@ public class Obelisk : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     Rigidbody2D player;
     public float charging_dist;
-    public float charge_Time = 2f;
+    public float charge_Time = 5f;
 
     public ParticleSystem ParticleSystem1;
     public ParticleSystem ParticleSystem2;
@@ -45,7 +45,7 @@ public class Obelisk : MonoBehaviour
                 }
                 anim.SetBool("charging", true);
                 current_time -= Time.deltaTime;
-                //Debug.Log(current_time);
+                //Debug.Log("obelisk time: " + current_time);
 
                 if (current_time <= 0f)
                 {
@@ -65,8 +65,16 @@ public class Obelisk : MonoBehaviour
                 }
                 //Debug.Log("stopping");
                 anim.SetBool("charging", false);
-                current_time = charge_Time;
-                changeParticleState = false;
+                
+                if (skill_tree.Obelisk_Speed)
+                {
+                    current_time = charge_Time - 2f;
+                }
+                else
+                {
+                    current_time = charge_Time;
+                }
+                    changeParticleState = false;
             }
         }
     }

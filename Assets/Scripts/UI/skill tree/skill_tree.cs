@@ -1,4 +1,5 @@
 using NUnit.Framework.Internal;
+using TMPro;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,14 +17,18 @@ public class skill_tree : MonoBehaviour
     public static float StaminaRegeneration = 10f;
     public static float HealthRegeneration = 0f;
 
-    public static bool GroundPound = false;
-    public static bool Invisability = false;
+    public static bool Obelisk_Speed = false;
+    public static bool shop_discount = false;
 
     public static bool BurningImmunity = false;
     public static bool PoisonedImmunity = false;
     public static bool FreezingImmunity = false;
 
     public Gradient green;
+
+    public TextMeshProUGUI skillpoint_text;
+
+    public static int skillpoint = 0;
 
     private static bool[] skillTreeOnce = {
         false,
@@ -43,13 +48,13 @@ public class skill_tree : MonoBehaviour
     void Start()
     {
         SetLines();
-        green = new Gradient();
+        skillpoint += 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        skillpoint_text.text = skillpoint.ToString();
     }
 
     public void SetLines()
@@ -147,7 +152,7 @@ public class skill_tree : MonoBehaviour
 
     public void IncreaseMaxHealth()
     {
-        if (!skillTreeOnce[0])
+        if (!skillTreeOnce[0] && skillpoint > 0)
         {
             skillTreeOnce[0] = true;
             maxHealth += 50f;
@@ -159,8 +164,9 @@ public class skill_tree : MonoBehaviour
 
     public void HealthRegen()
     {
-        if (!skillTreeOnce[2] && skillTreeOnce[0])
+        if (!skillTreeOnce[2] && skillTreeOnce[0] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[2] = true;
             HealthRegeneration += 1f;
             Debug.Log(HealthRegeneration);
@@ -168,21 +174,23 @@ public class skill_tree : MonoBehaviour
             skill_tree_icons[1].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
         }
     }
-    public void BuyInvisability()
+    public void Buyshop_discount()
     {
-        if (!skillTreeOnce[5] && skillTreeOnce[2])
+        if (!skillTreeOnce[5] && skillTreeOnce[2] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[5] = true;
-            Invisability = true;
-            Debug.Log(Invisability);
+            shop_discount = true;
+            Debug.Log(shop_discount);
 
             skill_tree_icons[3].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
         }
     }
 
     public void FreezeImmunity(){
-        if (!skillTreeOnce[9] && skillTreeOnce[2])
+        if (!skillTreeOnce[9] && skillTreeOnce[2] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[9] = true;
             FreezingImmunity = true;
             Debug.Log(FreezingImmunity);
@@ -192,10 +200,11 @@ public class skill_tree : MonoBehaviour
     }
 
     public void IncreasePlayerSpeed(){
-        if (!skillTreeOnce[3])
+        if (!skillTreeOnce[3] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[3] = true;
-            player_speed += 2f;
+            player_speed += 1f;
             Debug.Log(player_speed);
 
             skill_tree_icons[0].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
@@ -203,8 +212,9 @@ public class skill_tree : MonoBehaviour
     }
 
     public void IncreaseJumpRange(){
-        if (!skillTreeOnce[7] && skillTreeOnce[3])
+        if (!skillTreeOnce[7] && skillTreeOnce[3] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[7] = true;
             player_jump_range += 10f;
             Debug.Log(player_jump_range);
@@ -215,10 +225,11 @@ public class skill_tree : MonoBehaviour
 
     public void IncreaseRollSpeed()
     {
-        if (!skillTreeOnce[8] && skillTreeOnce[3])
+        if (!skillTreeOnce[8] && skillTreeOnce[3] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[8] = true;
-            player_roll_speed += 10f;
+            player_roll_speed += 4f;
             Debug.Log(player_roll_speed);
 
             skill_tree_icons[4].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = green;
@@ -226,8 +237,9 @@ public class skill_tree : MonoBehaviour
     }
 
     public void BurnImmunity(){
-        if (!skillTreeOnce[11] && skillTreeOnce[7] && skillTreeOnce[8])
+        if (!skillTreeOnce[11] && skillTreeOnce[7] && skillTreeOnce[8] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[11] = true;
             BurningImmunity = true;
             Debug.Log(BurningImmunity);
@@ -238,8 +250,9 @@ public class skill_tree : MonoBehaviour
     }
 
     public void IncreaseMaxStamina(){
-        if (!skillTreeOnce[1])
+        if (!skillTreeOnce[1] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[1] = true;
             maxStamina += 50f;
             Debug.Log(maxStamina);
@@ -249,8 +262,9 @@ public class skill_tree : MonoBehaviour
     }
 
     public void IncreaseStaminaRegen(){
-        if (!skillTreeOnce[4] && skillTreeOnce[1])
+        if (!skillTreeOnce[4] && skillTreeOnce[1] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[4] = true;
             StaminaRegeneration += 10f;
             Debug.Log(StaminaRegeneration);
@@ -259,20 +273,22 @@ public class skill_tree : MonoBehaviour
         }
     }
 
-    public void BuyGroundPound(){
-        if (!skillTreeOnce[6] && skillTreeOnce[4])
+    public void BuyObelisk_Speed(){
+        if (!skillTreeOnce[6] && skillTreeOnce[4] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[6] = true;
-            GroundPound = true;
-            Debug.Log(GroundPound);
+            Obelisk_Speed = true;
+            Debug.Log(Obelisk_Speed);
 
             skill_tree_icons[5].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = green;
         }
     }
 
     public void PoisonImmunity(){
-        if (!skillTreeOnce[10] && skillTreeOnce[4])
+        if (!skillTreeOnce[10] && skillTreeOnce[4] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[10] = true;
             PoisonedImmunity = true;
             Debug.Log(PoisonedImmunity);

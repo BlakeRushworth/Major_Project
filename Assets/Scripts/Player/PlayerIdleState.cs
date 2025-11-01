@@ -47,7 +47,7 @@ public class PlayerIdleState : PlayerBaseState
             mouseWorldPosition.z = cross.transform.position.z;
             cross.transform.position = mouseWorldPosition;
 
-            if (Input.GetKey(KeyCode.Mouse0) == true) //left mouse
+            if (Input.GetKey(KeyCode.Mouse1) == true) //left mouse
             {
                 Vector3Int cellPosition = player.targetTilemap.WorldToCell(mouseWorldPosition);
                 TileBase tileAtPosition = player.targetTilemap.GetTile(cellPosition);

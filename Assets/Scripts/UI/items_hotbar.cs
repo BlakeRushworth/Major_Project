@@ -27,13 +27,15 @@ public class items_hotbar : MonoBehaviour
     public Sprite active;
     public Sprite deactive;
 
+    public GameObject bomb;
+
     private float landmine_CD = 10f;
     private float health_CD = 10f;
     private float stamina_CD = 10f;
 
-    public static int landmine_count;
-    public static int health_potion_count;
-    public static int stamina_potion_count;
+    public static int landmine_count = 0;
+    public static int health_potion_count = 0;
+    public static int stamina_potion_count = 0;
 
     private float landmine_range = 10f;
     private float potion_health_strength = 33f;
@@ -46,10 +48,6 @@ public class items_hotbar : MonoBehaviour
         health_potion_slot.GetComponent<Image>().overrideSprite = deactive;
         stamina_potion_slot.GetComponent<Image>().overrideSprite = deactive;
         activeItem = 1;
-
-        landmine_count = 0;
-        health_potion_count = 0;
-        stamina_potion_count = 0;
     }
 
     // Update is called once per frame
@@ -80,18 +78,19 @@ public class items_hotbar : MonoBehaviour
             activeItem = 3;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && activeItem == 1 && landmine_CD >= 10f && landmine_count > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 1 && landmine_CD >= 10f && landmine_count > 0)
         {
             landmine_CD = 0f;
             landmine_count -= 1;
+            Instantiate(bomb, player.transform.position, Quaternion.identity);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && activeItem == 2 && health_CD >= 10f && health_potion_count > 0 && health_bar_test.currentHealth < health_bar_test.maxHealth)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 2 && health_CD >= 10f && health_potion_count > 0 && health_bar_test.currentHealth < health_bar_test.maxHealth)
         {
             health_CD = 0f;
             health_potion_count -= 1;
             health_bar_test.currentHealth += potion_health_strength;
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && activeItem == 3 && stamina_CD >= 10f && stamina_potion_count > 0 && stamina_bar.currentStanima < stamina_bar.maxStanima)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 3 && stamina_CD >= 10f && stamina_potion_count > 0 && stamina_bar.currentStanima < stamina_bar.maxStanima)
         {
             stamina_CD = 0f;
             stamina_potion_count -= 1;

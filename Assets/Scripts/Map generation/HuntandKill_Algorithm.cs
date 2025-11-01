@@ -7,6 +7,8 @@ using UnityEngine.VFX;
 
 public class HuntandKill_Algorithm : MonoBehaviour
 {
+    public GameObject outerwallPrefab;
+
     public GameObject Hwall;
     public GameObject Vwall;
     [HideInInspector] public Vector2Int mapSize;
@@ -68,6 +70,7 @@ public class HuntandKill_Algorithm : MonoBehaviour
                 }
             }
         }
+        SpawnOuterWalls();
         MergeTilemaps();
     }
 
@@ -79,22 +82,24 @@ public class HuntandKill_Algorithm : MonoBehaviour
 
     public void StartingPoint()
     {
-        if (DifficultyINcreases.enableEnemyTypes)
-        {
-            mapSize.x = Random.Range(3, 5);
-            mapSize.y = Random.Range(3, 5);
-        }
-        else if (DifficultyINcreases.enableBigEnemies)
-        {
+        //if (DifficultyINcreases.wave >= 3) //3x3 to 4x4
+        //{
+        //    mapSize.x = Random.Range(4, 5);
+        //    mapSize.y = Random.Range(4, 5);
+        //}
+        //else if (DifficultyINcreases.wave >= 5) //4x4 to 5x5
+        //{
             
-            mapSize.x = Random.Range(4, 6);
-            mapSize.y = Random.Range(4, 6);
-        }
-        else
-        {
-            mapSize.x = Random.Range(3, 4);
-            mapSize.y = Random.Range(3, 4);
-        }
+        //    mapSize.x = Random.Range(5, 6);
+        //    mapSize.y = Random.Range(5, 6);
+        //}
+        //else //only 3x3
+        //{
+            //mapSize.x = Random.Range(3, (DifficultyINcreases.wave) + 4);
+            //mapSize.y = Random.Range(3, (DifficultyINcreases.wave) + 4);
+        mapSize.x = DifficultyINcreases.wave + 4;
+        mapSize.y = DifficultyINcreases.wave + 4;
+        //}
         tileIdentifier = new int[mapSize.x, mapSize.y];
         //print("mapsize: " + mapSize);
 
@@ -367,6 +372,32 @@ public class HuntandKill_Algorithm : MonoBehaviour
         }
 
         Instantiate(SpawnManager, Vector2.zero, Quaternion.identity);
+    }
+
+    public void SpawnOuterWalls()
+    {
+        Vector2 starting_pos = new Vector2(-32, -32);
+        for (int i = 0; i < mapSize.x + 1; i++)
+        {
+            Vector2 spawn_pos = new Vector2(starting_pos.x + i * 32f, starting_pos.y);
+            Instantiate(outerwallPrefab, spawn_pos, Quaternion.identity);
+        }
+        for (int i = 0; i < mapSize.y + 1; i++)
+        {
+            Vector2 spawn_pos = new Vector2(starting_pos.x + (mapSize.x + 1) * 32f, starting_pos.y + i * 32f);
+            Instantiate(outerwallPrefab, spawn_pos, Quaternion.identity);
+        }
+        for (int i = 0; i < mapSize.x + 1; i++)
+        {
+            Vector2 spawn_pos = new Vector2(starting_pos.x + (i + 1) * 32f, starting_pos.y + (mapSize.y + 1) * 32f);
+            Instantiate(outerwallPrefab, spawn_pos, Quaternion.identity);
+        }
+        for (int i = 0; i < mapSize.y + 1; i++)
+        {
+            Vector2 spawn_pos = new Vector2(starting_pos.x, starting_pos.y + (i + 1) * 32f);
+            Instantiate(outerwallPrefab, spawn_pos, Quaternion.identity);
+        }
+
     }
 }
   

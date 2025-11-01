@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6455983184563042764
 RectTransform:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Health - $40
+  m_text: Health - $15
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -655,7 +655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stamina - $20
+  m_text: Stamina - $5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1227,7 +1227,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -775856721
+  m_SortingLayerID: 1896893157
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -4141618006047545035, guid: 733e395ab4325024886817486cb13770, type: 3}
@@ -1271,11 +1271,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0006888658, y: 0.00034462288}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1285,8 +1285,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.34345934, y: 0.23414823}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.3, y: 0.25}
+  m_EdgeRadius: 1
 --- !u!50 &6147697470242028388
 Rigidbody2D:
   serializedVersion: 5
@@ -1327,6 +1327,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shop_ui: {fileID: 269543430373738982}
+  landmine_cost: 20
+  health_potion_cost: 32
+  stamina_potion_cost: 12
+  landmine_text: {fileID: 1482458970863431592}
+  health_potion_text: {fileID: 8495763341266831256}
+  stamina_potion_text: {fileID: 5353720231852183429}
 --- !u!1 &4375198048162413152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,8 +1844,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -775856721
-  m_SortingLayer: 7
+  m_SortingLayerID: 49719483
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 3215200728324355368, guid: 44ff3db7ef3014a4fa1bbc0e5067fdba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

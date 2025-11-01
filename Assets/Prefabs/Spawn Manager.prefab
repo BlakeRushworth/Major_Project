@@ -47,4 +47,6 @@ MonoBehaviour:
   Portal: {fileID: 6817443839338546734, guid: 6639553bd09163e4090dd9e9d14bbb43, type: 3}
   Obelisk: {fileID: 7190556960360671358, guid: 2edc2683f65ba6549bf3174eaefe8cf5, type: 3}
   player: {fileID: 1079732106374534157, guid: 9caa86121292455468e6cc479afd5813, type: 3}
+  stall: {fileID: 3943433157514976484, guid: 80cc73f86a660374fa823c13b24f2a2c, type: 3}
+  coinprefab: {fileID: 6892511725080032865, guid: 7ee7dd7f3f97615479f4591102cb0eb7, type: 3}
   obelisk_chance: 4

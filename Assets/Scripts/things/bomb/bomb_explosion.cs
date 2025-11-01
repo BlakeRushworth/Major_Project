@@ -1,14 +1,13 @@
 using UnityEngine;
 
-public class bomb : MonoBehaviour
+public class bomb_explosion : MonoBehaviour
 {
     private Animator animatior;
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animatior = this.gameObject.GetComponent<Animator>();
-        animatior.Play("bomb_rolling");
+        animatior.Play("bomb_exploding");
     }
 
     // Update is called once per frame
@@ -17,9 +16,8 @@ public class bomb : MonoBehaviour
         
     }
 
-    public void finsished_anim()
+    public void Finish_animation()
     {
-        animatior.enabled = false;
-        //explode
+        GetComponentInParent<bomb>().destory();
     }
 }

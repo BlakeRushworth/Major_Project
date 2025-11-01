@@ -75,17 +75,17 @@ public class EnemyStateMachine : MonoBehaviour
         }
         if (enemyTypesEnabled)
         {
-            int randomType = Random.Range(0, NUMBROFTYPES);
+            int randomType = Random.Range(0, DifficultyINcreases.enemyTypesUnlocked + 1);
             if (randomType == 0)
             {
                 //normal
             }
-            else if (randomType == 1)
+            else if (randomType == 2)
             {
                 //poison
                 SR.color = green;
             }
-            else if (randomType == 2)
+            else if (randomType == 4)
             {
                 //burn
                 SR.color = red;
@@ -95,7 +95,7 @@ public class EnemyStateMachine : MonoBehaviour
                 //freeze
                 SR.color = blue;
             }
-            else if (randomType == 4)
+            else if (randomType == 1)
             {
                 //speed
                 SR.color = white;
@@ -142,5 +142,16 @@ public class EnemyStateMachine : MonoBehaviour
         anim.SetBool("Walk", stateName == states.Walk);
         anim.SetBool("Death", stateName == states.Death);
         anim.SetBool("Hit", stateName == states.Hit);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("touching something: " + collision.gameObject.name);
+        if (collision.gameObject.tag == "bomb_explosion")
+        {
+            Debug.Log("hit by bomb");
+            //changeAnim(states.Death);
+            GameObject.Destroy(this.gameObject);
+        }
     }
 }

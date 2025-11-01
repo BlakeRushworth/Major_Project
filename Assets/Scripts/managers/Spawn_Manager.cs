@@ -1,20 +1,33 @@
 using System.Threading;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Spawn_Manager : MonoBehaviour
 {
     public GameObject Portal;
     public GameObject Obelisk;
     public Rigidbody2D player;
+    public GameObject stall;
+    public GameObject coinprefab;
 
     public int obelisk_chance = 4;
 
     private int num_of_spawningobelisks;
 
     private bool spawnPortalOnce = false;
+    private Tilemap myTilemap;
+
+
+    private Vector2 mapSize;
+
+    private Vector2 bottomleftReference = new Vector2(-26, -49);
     void Start()
     {
+        mapSize = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<HuntandKill_Algorithm>().mapSize;
+        myTilemap = GameObject.FindGameObjectWithTag("collison_tilemap").GetComponent<Tilemap>();
+
+
         spawnPortalOnce = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
@@ -29,21 +42,6 @@ public class Spawn_Manager : MonoBehaviour
         GameObject[] obeliskObjects = GameObject.FindGameObjectsWithTag("obelisk spawnpoint");
         if (obeliskObjects.Length > 0)
         {
-            //Debug.Log("obelisk: " + obeliskObjects.Length);
-            //int test_count = 0;
-            //foreach (GameObject obelisk in obeliskObjects)
-            //{
-            //    int rand = Random.Range(0, obelisk_chance);
-            //    Debug.Log(rand);
-            //    if (rand == 0)
-            //    {
-            //        // Do something with each portal object
-            //        Debug.Log("Found obrlisk spawn: " + obelisk.name);
-            //        Instantiate(Obelisk, obelisk.transform.position, Quaternion.identity);
-            //        test_count += 1;
-            //    }
-            //}
-            //Debug.Log("spawned obelisk count: " + test_count);
             if (DifficultyINcreases.enableEnemyTypes)
             {
                 num_of_spawningobelisks = 3;
@@ -57,7 +55,7 @@ public class Spawn_Manager : MonoBehaviour
                 num_of_spawningobelisks = 3;
             }
                 bool[] once = new bool[obeliskObjects.Length];
-            for (int i = 0; i < num_of_spawningobelisks; i++)
+            for (int i = 0; i < num_of_spawningobelisks - 1; i++)
             {
                 int rand = Random.Range(0, obeliskObjects.Length);
                 while (once[rand])
@@ -67,6 +65,37 @@ public class Spawn_Manager : MonoBehaviour
                 once[rand] = true;
                 Instantiate(Obelisk, obeliskObjects[rand].transform.position, Quaternion.identity);
             }
+
+            for (int i = 0; i < 1; i++)
+            {
+                int rand = Random.Range(0, obeliskObjects.Length);
+                while (once[rand])
+                {
+                    rand = Random.Range(0, obeliskObjects.Length);
+                }
+                once[rand] = true;
+                Instantiate(stall, obeliskObjects[rand].transform.position, Quaternion.identity);
+            }
+        }
+
+        for (int c = 0; c < 2 * DifficultyINcreases.wave; c++)
+        {
+            int rand_x = Random.Range(0, (int)mapSize.x * 32);
+            int rand_y = Random.Range(0, (int)mapSize.y * 32);
+            Vector2 coordinate = new Vector2(rand_x + bottomleftReference.x, rand_y + bottomleftReference.y);
+            Vector3Int cellPosition = myTilemap.WorldToCell(coordinate);
+            TileBase tileAtPosition = myTilemap.GetTile(cellPosition);
+
+            while (tileAtPosition != null)
+            {
+                rand_x = Random.Range(0, (int)mapSize.x * 32);
+                rand_y = Random.Range(0, (int)mapSize.y * 32);
+                coordinate = new Vector2(rand_x + bottomleftReference.x, rand_y + bottomleftReference.y);
+                cellPosition = myTilemap.WorldToCell(coordinate);
+                tileAtPosition = myTilemap.GetTile(cellPosition);
+            }
+            Debug.Log("can spawn coin here");
+            Instantiate(coinprefab, coordinate, Quaternion.identity);
         }
     }
 
