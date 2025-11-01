@@ -154,6 +154,7 @@ public class skill_tree : MonoBehaviour
     {
         if (!skillTreeOnce[0] && skillpoint > 0)
         {
+            skillpoint -= 1;
             skillTreeOnce[0] = true;
             maxHealth += 50f;
             Debug.Log(maxHealth);

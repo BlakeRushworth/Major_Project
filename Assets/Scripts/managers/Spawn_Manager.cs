@@ -42,20 +42,20 @@ public class Spawn_Manager : MonoBehaviour
         GameObject[] obeliskObjects = GameObject.FindGameObjectsWithTag("obelisk spawnpoint");
         if (obeliskObjects.Length > 0)
         {
-            if (DifficultyINcreases.enableEnemyTypes)
-            {
-                num_of_spawningobelisks = 3;
-            }
-            else if (DifficultyINcreases.enableBigEnemies)
-            {
-                num_of_spawningobelisks = 5;
-            }
-            else
-            {
-                num_of_spawningobelisks = 3;
-            }
+            //if (DifficultyINcreases.enableEnemyTypes)
+            //{
+            //    num_of_spawningobelisks = 3;
+            //}
+            //else if (DifficultyINcreases.enableBigEnemies)
+            //{
+            //    num_of_spawningobelisks = 5;
+            //}
+            //else
+            //{
+            //    num_of_spawningobelisks = 3;
+            //}
                 bool[] once = new bool[obeliskObjects.Length];
-            for (int i = 0; i < num_of_spawningobelisks - 1; i++)
+            for (int i = 0; i < mapSize.x - 1; i++)
             {
                 int rand = Random.Range(0, obeliskObjects.Length);
                 while (once[rand])

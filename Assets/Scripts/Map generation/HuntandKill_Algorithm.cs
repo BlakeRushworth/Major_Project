@@ -97,10 +97,18 @@ public class HuntandKill_Algorithm : MonoBehaviour
         //{
             //mapSize.x = Random.Range(3, (DifficultyINcreases.wave) + 4);
             //mapSize.y = Random.Range(3, (DifficultyINcreases.wave) + 4);
-        mapSize.x = DifficultyINcreases.wave + 4;
-        mapSize.y = DifficultyINcreases.wave + 4;
-        //}
-        tileIdentifier = new int[mapSize.x, mapSize.y];
+        if (DifficultyINcreases.wave >= 3)
+        {
+            mapSize.x = DifficultyINcreases.wave / 3 + 3;
+            mapSize.y = DifficultyINcreases.wave / 3 + 3;
+        }
+        else
+        {
+            mapSize.x = 3;
+            mapSize.y = 3;
+        }
+            //}
+            tileIdentifier = new int[mapSize.x, mapSize.y];
         //print("mapsize: " + mapSize);
 
 

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class minimap_manager : MonoBehaviour
 {
+    public Image minimap_holder;
+
     public GameObject minimapIcon;
     //public Image minimapIcon;
     public Sprite unvisitedSprite;
@@ -32,6 +34,8 @@ public class minimap_manager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mapSize = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<HuntandKill_Algorithm>().mapSize;
+        minimap_holder.GetComponent<RectTransform>().position = placement + new Vector2(32, 32);
+        minimap_holder.GetComponent<RectTransform>().sizeDelta = new Vector2(mapSize.x * 50 + 2 * 32, mapSize.y * 50 + 2 * 32);
     }
 
     // Update is called once per frame
