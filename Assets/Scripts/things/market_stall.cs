@@ -13,8 +13,12 @@ public class market_stall : MonoBehaviour
     public TextMeshProUGUI landmine_text;
     public TextMeshProUGUI health_potion_text;
     public TextMeshProUGUI stamina_potion_text;
+
+    AudioManager audioManager;
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
+
         if (skill_tree.shop_discount)
         {
             landmine_cost *= (float)0.75;
@@ -61,6 +65,7 @@ public class market_stall : MonoBehaviour
 
     public void backButton()
     {
+        audioManager.PlaySFX(audioManager.buttonClick, 1f);
         Time.timeScale = 1;
         shop_ui.SetActive(false);
     }
@@ -69,6 +74,7 @@ public class market_stall : MonoBehaviour
     {
         if (coin_ui.coin_count >= landmine_cost)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             Debug.Log("clicked landmine");
             items_hotbar.landmine_count += 1;
             coin_ui.coin_count -= (int)landmine_cost;
@@ -79,6 +85,7 @@ public class market_stall : MonoBehaviour
     {
         if (coin_ui.coin_count >= health_potion_cost)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             Debug.Log("clicked health");
             items_hotbar.health_potion_count += 1;
             coin_ui.coin_count -= (int)health_potion_cost;
@@ -88,6 +95,7 @@ public class market_stall : MonoBehaviour
     {
         if (coin_ui.coin_count >= stamina_potion_cost)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             Debug.Log("clicked stamina");
             items_hotbar.stamina_potion_count += 1;
             coin_ui.coin_count -= (int)stamina_potion_cost;

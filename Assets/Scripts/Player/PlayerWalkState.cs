@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,7 +7,8 @@ public class PlayerWalkState : PlayerBaseState
     private Vector2 movement;
     private GameObject cross;
     private LineRenderer LR;
-
+    private bool onceAnim = false;
+    private float time = 100f;
     public override void Enter(PlayerStateMachine player)
     {
         cross = player.transform.GetChild(1).gameObject;
@@ -80,7 +82,7 @@ public class PlayerWalkState : PlayerBaseState
         //    player.ChangeState(PlayerStateMachine.states.MeleeAttack);
         //    //return;
         //}
-
+        
         else if (Input.GetKey(KeyCode.Q) == true && stamina_bar.currentStanima > stamina_bar.Roll_stanima_cost)
         {
             Debug.Log("walk to roll");
@@ -109,6 +111,8 @@ public class PlayerWalkState : PlayerBaseState
             player.SR.flipX = false;
         }
 
+
+        player.StartCoroutine(player.WalkSound());
     }
 
     public override void finishedAnimation(PlayerStateMachine player)

@@ -27,13 +27,15 @@ public class EnemyStateMachine : MonoBehaviour
     public Color green;
     public Color red;
     public Color white;
-    private int NUMBROFTYPES = 5;
+    //private int NUMBROFTYPES = 5;
     private int BIGENEMYCHANCE = 4;
 
     public float enemy_range = 3f;
 
     public GameObject poisonPuddle;
     public bool spawnPoison = false;
+
+    public AudioManager audioManager;
 
     Rigidbody2D player;
     public enum states
@@ -43,6 +45,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
         enemyTypesEnabled = DifficultyINcreases.enableEnemyTypes;

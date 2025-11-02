@@ -6,6 +6,7 @@ public class PlayerDeathState : PlayerBaseState
     {
         player.anim.SetTrigger("Death1");
         Debug.Log("Entered Death");
+        player.audioManager.PlaySFX(player.audioManager.playerDeath, 1f);
     }
 
     public override void Exit(PlayerStateMachine player)

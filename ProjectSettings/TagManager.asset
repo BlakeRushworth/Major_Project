@@ -17,6 +17,7 @@ TagManager:
   - portal
   - bomb_explosion
   - collison_tilemap
+  - audio
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,41 +57,74 @@ public class items_hotbar : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scrollInput > 0)
+        {
+            //Debug.Log("Scrolled Up!");
+            activeItem += 1;
+            if (activeItem > 3)
+            {
+                activeItem = 3;
+            }
+        }
+        else if (scrollInput < 0)
+        {
+            activeItem -= 1;
+            if (activeItem < 0)
+            {
+                activeItem = 1;
+            }
+        }
+
+
+
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            landmine_slot.GetComponent<Image>().overrideSprite = active;
-            health_potion_slot.GetComponent<Image>().overrideSprite = deactive;
-            stamina_potion_slot.GetComponent<Image>().overrideSprite = deactive;
             activeItem = 1;
         }
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            landmine_slot.GetComponent<Image>().overrideSprite = deactive;
-            health_potion_slot.GetComponent<Image>().overrideSprite = active;
-            stamina_potion_slot.GetComponent<Image>().overrideSprite = deactive;
             activeItem = 2;
         }
         if (Input.GetKey(KeyCode.Alpha3))
         {
-            landmine_slot.GetComponent<Image>().overrideSprite = deactive;
-            health_potion_slot.GetComponent<Image>().overrideSprite = deactive;
-            stamina_potion_slot.GetComponent<Image>().overrideSprite = active;
             activeItem = 3;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 1 && landmine_CD >= 10f && landmine_count > 0)
+        if (activeItem == 1)
+        {
+            landmine_slot.GetComponent<Image>().overrideSprite = active;
+            health_potion_slot.GetComponent<Image>().overrideSprite = deactive;
+            stamina_potion_slot.GetComponent<Image>().overrideSprite = deactive;
+        }
+        else if (activeItem == 2){
+            landmine_slot.GetComponent<Image>().overrideSprite = deactive;
+            health_potion_slot.GetComponent<Image>().overrideSprite = active;
+            stamina_potion_slot.GetComponent<Image>().overrideSprite = deactive;
+        }
+        else if (activeItem == 3)
+        {
+            landmine_slot.GetComponent<Image>().overrideSprite = deactive;
+            health_potion_slot.GetComponent<Image>().overrideSprite = deactive;
+            stamina_potion_slot.GetComponent<Image>().overrideSprite = active;
+        }
+
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Space) && activeItem == 1 && landmine_CD >= 10f && landmine_count > 0)
         {
             landmine_CD = 0f;
             landmine_count -= 1;
             Instantiate(bomb, player.transform.position, Quaternion.identity);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 2 && health_CD >= 10f && health_potion_count > 0 && health_bar_test.currentHealth < health_bar_test.maxHealth)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Space) && activeItem == 2 && health_CD >= 10f && health_potion_count > 0 && health_bar_test.currentHealth < health_bar_test.maxHealth)
         {
             health_CD = 0f;
             health_potion_count -= 1;
             health_bar_test.currentHealth += potion_health_strength;
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Space) && activeItem == 3 && stamina_CD >= 10f && stamina_potion_count > 0 && stamina_bar.currentStanima < stamina_bar.maxStanima)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Space) && activeItem == 3 && stamina_CD >= 10f && stamina_potion_count > 0 && stamina_bar.currentStanima < stamina_bar.maxStanima)
         {
             stamina_CD = 0f;
             stamina_potion_count -= 1;

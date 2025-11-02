@@ -20,6 +20,8 @@ public class PlayerStateMachine : MonoBehaviour
     public bool attemptEnemyFreeze = false;
     private bool donehit = true;
 
+    private bool onceAnim = false;
+
     [HideInInspector]
     public Rigidbody2D RB;
     [HideInInspector]
@@ -37,6 +39,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     public bool turnInvis  = false;
 
+    public AudioManager audioManager;
+
     public enum states
     {
         Idle, Walk, RangeAttack, MeleeAttack, Hit, Death, Roll, Jump
@@ -44,7 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
-
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
 
         MaxHealth = skill_tree.maxHealth;
         speed = skill_tree.player_speed;
@@ -87,7 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
             ChangeState(states.Death);
         }
 
-        Debug.Log("hitcooldown = " + hitCooldown + " donehit = " + donehit);
+        //Debug.Log("hitcooldown = " + hitCooldown + " donehit = " + donehit);
         if (hitCooldown && donehit)
         {
             if (enemytypehitby == "poison")
@@ -106,6 +110,8 @@ public class PlayerStateMachine : MonoBehaviour
             {
                 StartCoroutine(BeenHit());
             }
+
+            audioManager.PlaySFX(audioManager.playerHit, 1f);
         }
     }
 
@@ -191,6 +197,33 @@ public class PlayerStateMachine : MonoBehaviour
             donehit = true;
             SR.color = Color.white;
             Debug.Log("hit Countdown finished!");
+        }
+    }
+
+    public IEnumerator WalkSound()
+    {
+        if (onceAnim == false)
+        {
+            Debug.Log("set sound: start");
+            onceAnim = true;
+
+            int rand = Random.Range(0, 3);
+            if (rand == 0)
+            {
+                audioManager.PlaySFX(audioManager.playerWalk1, 1f);
+            }
+            if (rand == 1)
+            {
+                audioManager.PlaySFX(audioManager.playerWalk2, 1f);
+            }
+            if (rand == 2)
+            {
+                audioManager.PlaySFX(audioManager.playerWalk3, 1f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log("set sound: done");
+            onceAnim = false;
         }
     }
 }

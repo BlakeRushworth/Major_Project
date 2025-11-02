@@ -20,8 +20,12 @@ public class Obelisk : MonoBehaviour
     [HideInInspector]
     public Animator anim;
 
+    AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         //ParticleSystem1.Play();
@@ -49,6 +53,7 @@ public class Obelisk : MonoBehaviour
 
                 if (current_time <= 0f)
                 {
+                    audioManager.PlaySFX(audioManager.obeliskCompletion, 1f);
                     anim.SetBool("done", true);
                     complete = true;
                     ParticleSystem1.Stop();

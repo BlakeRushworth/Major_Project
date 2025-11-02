@@ -28,6 +28,8 @@ public class PlayerJumpState : PlayerBaseState
         //player.RB.MovePosition.Lerp(player.RB.position + movement * distance / ANIMATION_TIME * Time.deltaTime);
         cross.GetComponent<SpriteRenderer>().enabled = false;
         LR.enabled = false;
+
+        player.audioManager.PlaySFX(player.audioManager.playerJump, 1f);
     }
 
     public override void Exit(PlayerStateMachine player)

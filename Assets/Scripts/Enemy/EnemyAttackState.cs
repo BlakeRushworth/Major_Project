@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttackState : EnemyBaseState
 {
     Rigidbody2D player;
+
     public override void Enter(EnemyStateMachine enemy)
     {
         enemy.changeAnim(EnemyStateMachine.states.Attack);
@@ -23,6 +24,8 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void attackcheck(EnemyStateMachine enemy)
     {
+        enemy.audioManager.PlaySFX(enemy.audioManager.enemyAttack, 1f);
+
         Vector2 enemyPos = enemy.transform.position;
         Vector2 playerPos = player.transform.position;
         //Vector2 direction = (playerPos - enemyPos);

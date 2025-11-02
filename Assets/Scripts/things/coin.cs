@@ -7,9 +7,14 @@ public class coin : MonoBehaviour
     public Sprite bigPile;
 
     private int coin_value;
+
+    AudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
+
+
         int rand = Random.Range(0, 3);
         if (rand == 0)
         {
@@ -47,6 +52,7 @@ public class coin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            audioManager.PlaySFX(audioManager.coinSound, 1f);
             coin_ui.coin_count += coin_value;
             Destroy(this.gameObject);
         }

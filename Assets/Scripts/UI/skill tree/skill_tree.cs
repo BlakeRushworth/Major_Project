@@ -25,12 +25,15 @@ public class skill_tree : MonoBehaviour
     public static bool FreezingImmunity = false;
 
     public Gradient green;
+    public Gradient gray;
+
 
     public TextMeshProUGUI skillpoint_text;
 
     public static int skillpoint = 0;
+    public static bool resetLines = true;
 
-    private static bool[] skillTreeOnce = {
+    public static bool[] skillTreeOnce = {
         false,
         false,
         false,
@@ -44,11 +47,35 @@ public class skill_tree : MonoBehaviour
         false,
         false
     };
+
+    public GameObject LoadingScreen;
+
+    AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioManager>();
+
         SetLines();
         skillpoint += 1;
+        if (resetLines)
+        {
+            resetLines = false;
+            skill_tree_icons[0].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[0].transform.GetChild(2).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[1].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[0].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[2].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[3].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[5].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[4].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[4].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[3].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[5].transform.GetChild(1).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[8].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+            skill_tree_icons[9].transform.GetChild(0).GetComponentInChildren<LineRenderer>().colorGradient = gray;
+        }
     }
 
     // Update is called once per frame
@@ -147,6 +174,8 @@ public class skill_tree : MonoBehaviour
 
     public void NextLevelButton()
     {
+        audioManager.PlaySFX(audioManager.buttonClick, 1f);
+        Instantiate(LoadingScreen, transform.position, Quaternion.identity);
         SceneManager.LoadScene(0);
     }
 
@@ -154,6 +183,7 @@ public class skill_tree : MonoBehaviour
     {
         if (!skillTreeOnce[0] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[0] = true;
             maxHealth += 50f;
@@ -167,6 +197,7 @@ public class skill_tree : MonoBehaviour
     {
         if (!skillTreeOnce[2] && skillTreeOnce[0] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[2] = true;
             HealthRegeneration += 1f;
@@ -179,6 +210,7 @@ public class skill_tree : MonoBehaviour
     {
         if (!skillTreeOnce[5] && skillTreeOnce[2] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[5] = true;
             shop_discount = true;
@@ -191,6 +223,7 @@ public class skill_tree : MonoBehaviour
     public void FreezeImmunity(){
         if (!skillTreeOnce[9] && skillTreeOnce[2] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[9] = true;
             FreezingImmunity = true;
@@ -203,6 +236,7 @@ public class skill_tree : MonoBehaviour
     public void IncreasePlayerSpeed(){
         if (!skillTreeOnce[3] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[3] = true;
             player_speed += 1f;
@@ -215,6 +249,7 @@ public class skill_tree : MonoBehaviour
     public void IncreaseJumpRange(){
         if (!skillTreeOnce[7] && skillTreeOnce[3] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[7] = true;
             player_jump_range += 10f;
@@ -228,6 +263,7 @@ public class skill_tree : MonoBehaviour
     {
         if (!skillTreeOnce[8] && skillTreeOnce[3] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[8] = true;
             player_roll_speed += 4f;
@@ -240,6 +276,7 @@ public class skill_tree : MonoBehaviour
     public void BurnImmunity(){
         if (!skillTreeOnce[11] && skillTreeOnce[7] && skillTreeOnce[8] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[11] = true;
             BurningImmunity = true;
@@ -253,6 +290,7 @@ public class skill_tree : MonoBehaviour
     public void IncreaseMaxStamina(){
         if (!skillTreeOnce[1] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[1] = true;
             maxStamina += 50f;
@@ -265,6 +303,7 @@ public class skill_tree : MonoBehaviour
     public void IncreaseStaminaRegen(){
         if (!skillTreeOnce[4] && skillTreeOnce[1] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[4] = true;
             StaminaRegeneration += 10f;
@@ -277,6 +316,7 @@ public class skill_tree : MonoBehaviour
     public void BuyObelisk_Speed(){
         if (!skillTreeOnce[6] && skillTreeOnce[4] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[6] = true;
             Obelisk_Speed = true;
@@ -289,6 +329,7 @@ public class skill_tree : MonoBehaviour
     public void PoisonImmunity(){
         if (!skillTreeOnce[10] && skillTreeOnce[4] && skillpoint > 0)
         {
+            audioManager.PlaySFX(audioManager.buttonClick, 1f);
             skillpoint -= 1;
             skillTreeOnce[10] = true;
             PoisonedImmunity = true;

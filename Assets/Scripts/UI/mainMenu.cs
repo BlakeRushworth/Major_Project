@@ -1,10 +1,14 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class mainMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public AudioClip buttonClickSound;
+    public GameObject LoadingScreen;
     void Start()
     {
         
@@ -18,11 +22,13 @@ public class mainMenu : MonoBehaviour
 
     public void newGame()
     {
+        Instantiate(LoadingScreen, transform.position, Quaternion.identity);
         SceneManager.LoadScene(0);
     }
 
     public void settings()
     {
+        //AudioSource.PlayClipAtPoint(buttonClickSound, transform.position);
         SceneManager.LoadScene(3);
     }
 
