@@ -318,3 +318,4 @@ MonoBehaviour:
   enemyAttack: {fileID: 8300000, guid: 5b750f58c57bac0469f9589b39605d3c, type: 3}
   coinSound: {fileID: 8300000, guid: 6568b143256234d41ad13bfd134c5dc1, type: 3}
   obeliskCompletion: {fileID: 8300000, guid: 0754b43202ce0404993259e7fb314c43, type: 3}
+  Explosion: {fileID: 8300000, guid: 14e6d1a4e84ae634b97041e78d247c0b, type: 3}
