@@ -101,5 +101,8 @@ public class PlayerIdleState : PlayerBaseState
 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+        player.RB.linearVelocity = new Vector2(0, 0);
+
+
     }
 }
