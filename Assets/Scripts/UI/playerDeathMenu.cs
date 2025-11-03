@@ -34,7 +34,7 @@ public class playerDeathMenu : MonoBehaviour
         playerDeathUI.SetActive(false);
         Time.timeScale = 1;
         GetComponent<resetgame>().ResetGame();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("mainMenu");
     }
 
     public IEnumerator delayDeathScreen()

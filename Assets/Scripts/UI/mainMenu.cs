@@ -23,18 +23,18 @@ public class mainMenu : MonoBehaviour
     public void newGame()
     {
         Instantiate(LoadingScreen, transform.position, Quaternion.identity);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void settings()
     {
         //AudioSource.PlayClipAtPoint(buttonClickSound, transform.position);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("settingsMenu");
     }
 
     public void controls()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("controlsMenu");
     }
 
     public void exitGame()

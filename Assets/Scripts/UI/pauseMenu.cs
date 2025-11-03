@@ -38,6 +38,6 @@ public class pauseMenu : MonoBehaviour
         audioManager.PlaySFX(audioManager.buttonClick, 1f);
         Time.timeScale = 1;
         GetComponent<resetgame>().ResetGame();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("mainMenu");
     }
 }

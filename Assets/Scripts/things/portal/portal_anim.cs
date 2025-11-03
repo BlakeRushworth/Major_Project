@@ -21,7 +21,7 @@ public class portal_anim : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("go to skill tree");
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Skill_Tree");
         }
     }
 }

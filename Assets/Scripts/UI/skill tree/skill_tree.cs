@@ -176,7 +176,7 @@ public class skill_tree : MonoBehaviour
     {
         audioManager.PlaySFX(audioManager.buttonClick, 1f);
         Instantiate(LoadingScreen, transform.position, Quaternion.identity);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void IncreaseMaxHealth()
